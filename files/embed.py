@@ -4,7 +4,7 @@ from transformers import AutoTokenizer
 import torch
 import numpy as np
 from joblib import Parallel, delayed
-
+import threading
 
 
 def text_to_token_embeddings(model, tokenizer, text, batch_size=4096):
@@ -76,17 +76,32 @@ def count_tokens(tokenizer, text):
     tokenized_text = tokenizer(text, return_tensors="pt")
     return len(tokenized_text.input_ids[0])
 
-def get_span_annotations(chunks):
+def get_span_annotations_from_text(text, chunks):
     """
-    Given a list of chunks (strings) return the span annotations (start and end indices of chunks).
+    Given a list of chunks (strings) and the original text, return the span annotations
+    (start and end indices of chunks) within the original text.
+
+    Args:
+        text (str): The combined original text.
+        chunks (List[str]): List of pre-chunked text segments.
+
+    Returns:
+        List[Tuple[int, int]]: Character spans for each chunk in the original text.
     """
     span_annotations = []
-    start = 0
+    current_index = 0
+
     for chunk in chunks:
+        # Find the exact start and end indices of the chunk in the original text
+        start = text.find(chunk, current_index)
+        if start == -1:
+            raise ValueError(f"Chunk '{chunk}' not found in the text starting at index {current_index}")
         end = start + len(chunk)
         span_annotations.append((start, end))
-        start = end
+        current_index = end  # Update current index to avoid overlapping matches
+
     return span_annotations
+
 
 def char_to_token_spans(tokenizer, text, char_spans):
     """
@@ -108,10 +123,10 @@ def char_to_token_spans(tokenizer, text, char_spans):
     )
     offset_mapping = tokenized_text['offset_mapping'][0].tolist()  # Character positions for each token
 
-    print("\nTokenized text and offsets:")
-    tokens = tokenizer.convert_ids_to_tokens(tokenized_text['input_ids'][0])
-    for i, (token, (start, end)) in enumerate(zip(tokens, offset_mapping)):
-        print(f"Token {i}: '{token}' (Start: {start}, End: {end})")
+    # print("\nTokenized text and offsets:")
+    # tokens = tokenizer.convert_ids_to_tokens(tokenized_text['input_ids'][0])
+    # for i, (token, (start, end)) in enumerate(zip(tokens, offset_mapping)):
+    #     print(f"Token {i}: '{token}' (Start: {start}, End: {end})")
 
     token_spans = []
     for start_char, end_char in char_spans:
@@ -137,6 +152,7 @@ def char_to_token_spans(tokenizer, text, char_spans):
     return token_spans
 
 def late_chunking(token_embeddings, token_spans, max_length=None, batch_size=128):
+    
     """
     Performs late chunking by pooling token embeddings for each token-based span, 
     dynamically optimizing for CUDA or CPU.
@@ -200,3 +216,16 @@ def late_chunking(token_embeddings, token_spans, max_length=None, batch_size=128
 
     print(f"Final pooled embeddings: {len(pooled_embeddings)} spans processed.")
     return pooled_embeddings
+
+def clean_up():
+    # Clear CUDA memory
+    print("\nCleaning up...")
+    torch.cuda.empty_cache()
+
+    # Wait for threads to finish naturally
+    for thread in threading.enumerate():
+        if thread.name != "MainThread":
+            print(f"Joining thread: {thread.name}")
+            thread.join(timeout=1)  # Attempt to join the thread
+
+    print("Cleanup completed.")
