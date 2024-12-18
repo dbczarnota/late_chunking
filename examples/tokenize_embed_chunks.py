@@ -5,14 +5,13 @@ script_dir = Path(__file__).resolve().parent  # Get the directory of the current
 parent_dir = script_dir.parent  # Get the parent directory of the current script
 sys.path.append(str(parent_dir))  # Add the parent directory to the Python path
 
-import torch
 from rich import print
 from transformers import AutoTokenizer, AutoModel
 from files.embed import text_to_token_embeddings, late_chunking, char_to_token_spans, get_span_annotations_from_text, clean_up
+from files.handle_weaviate import connect_to_weaviate, add_to_weaviate
 
 def main():
     # Load tokenizer and model
-
     tokenizer = AutoTokenizer.from_pretrained('BAAI/bge-m3', trust_remote_code=True)
     model = AutoModel.from_pretrained('BAAI/bge-m3', trust_remote_code=True)
 
@@ -48,11 +47,15 @@ def main():
     token_embeddings = token_embeddings[0]  # Unpack batch dimension
     sentence_embeddings = late_chunking(token_embeddings, token_spans)
 
-    # Print sentence embeddings
-    print("\nSentence embeddings (first few numbers):")
-    for i, embedding in enumerate(sentence_embeddings):
-        print(f"Chunk {i + 1} embedding (first 5 values): {embedding[:5]}")
-    
+    # Connect to Weaviate
+    print("\nConnecting to Weaviate...")
+    client = connect_to_weaviate("test_late_chunking", delete_existing=True)
+
+    # Upload results to Weaviate
+    print("\nUploading to Weaviate...")
+    add_to_weaviate(client, "test_late_chunking", pre_chunked_text, sentence_embeddings)
+
+    # Cleanup
     try:
         clean_up()
     except Exception as e:
