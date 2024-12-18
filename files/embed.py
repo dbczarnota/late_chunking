@@ -9,34 +9,57 @@ from joblib import Parallel, delayed
 
 def text_to_token_embeddings(model, tokenizer, text, batch_size=4096):
     """
-    Given a model and tokenizer from HuggingFace, return token embeddings of the input text.
-    """
+    Given a model and tokenizer from HuggingFace, return token embeddings of the input text,
+    dynamically optimizing for CUDA or CPU.
 
-    if batch_size > 8192: # no of tokens
+    Args:
+        model: HuggingFace model object.
+        tokenizer: HuggingFace tokenizer object.
+        text (str): Input text to be tokenized and processed.
+        batch_size (int, optional): Maximum number of tokens to process in one batch.
+
+    Returns:
+        torch.Tensor: Token embeddings of the input text.
+    """
+    # Check for CUDA availability
+    use_cuda = torch.cuda.is_available()
+    device = torch.device("cuda" if use_cuda else "cpu")
+    print(f"Using device: {device}")
+
+    # Move model to appropriate device
+    model = model.to(device)
+
+    if batch_size > 8192:  # Ensure batch size is within limit
         raise ValueError("Batch size is too large. Please use a batch size of 8192 or less.")
 
+    # Tokenize the input text
     tokenized_text = tokenizer(text, return_tensors="pt")
     tokens = tokenized_text.tokens()
 
     if len(tokens) > batch_size:
         raise ValueError("Text is too long. Ensure it contains no more than batch_size tokens.")
-    
-    # Batch in sizes of batch_size
+
+    # Move tokenized inputs to device
+    tokenized_text = {k: v.to(device) for k, v in tokenized_text.items()}
+
+    # Batch process the input
     outputs = []
     for i in range(0, len(tokens), batch_size):
-        
         start = i
-        end   = min(i + batch_size, len(tokens))
+        end = min(i + batch_size, len(tokens))
 
-        # subset huggingface tokenizer outputs to i : i + batch_size
+        # Subset tokenized inputs for the current batch
         batch_inputs = {k: v[:, start:end] for k, v in tokenized_text.items()}
 
+        # Compute embeddings with no gradient computation
         with torch.no_grad():
             model_output = model(**batch_inputs)
 
         outputs.append(model_output.last_hidden_state)
 
+    # Concatenate outputs along the token dimension
     model_output = torch.cat(outputs, dim=1)
+
     return model_output
 
 def count_tokens(tokenizer, text):
