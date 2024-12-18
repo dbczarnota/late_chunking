@@ -39,13 +39,39 @@ def connect_to_weaviate(collection_name, delete_existing=False):
     print(f"Collection '{collection_name}' created successfully.")
     return client
 
+def add_to_weaviate(client, collection_name, chunks, chunk_embeddings):
+    """
+    Adds late_chunking results (chunks and their embeddings) to a Weaviate collection.
+
+    Args:
+        client (weaviate.Client): Weaviate client instance.
+        collection_name (str): Name of the collection to insert data into.
+        chunks (List[str]): List of text chunks.
+        chunk_embeddings (List[np.ndarray]): List of embeddings corresponding to each chunk.
+    """
+    # Prepare the data objects for insertion
+    data_objects = []
+    for i, chunk in enumerate(chunks):
+        data_object = {
+            "class": collection_name,
+            "properties": {
+                "content": chunk
+            },
+            "vector": chunk_embeddings[i].tolist()
+        }
+        data_objects.append(data_object)
+
+    # Insert the data into the collection
+    print(f"Inserting {len(data_objects)} chunks into collection '{collection_name}'...")
+    client.batch.add_objects(data_objects)
+    client.batch.flush()
+    print("Data inserted successfully.")
 
 
 
 
-
-# Example usage:
-client = connect_to_weaviate("test_late_chunking", delete_existing=False)
-client.close()
+# # Example usage:
+# client = connect_to_weaviate("test_late_chunking", delete_existing=False)
+# client.close()
 
 
