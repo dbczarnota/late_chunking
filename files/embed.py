@@ -50,3 +50,15 @@ def count_tokens(tokenizer, text):
     """
     tokenized_text = tokenizer(text, return_tensors="pt")
     return len(tokenized_text.input_ids[0])
+
+def get_span_annotations(chunks):
+    """
+    Given a list of chunks (strings) return the span annotations (start and end indices of chunks).
+    """
+    span_annotations = []
+    start = 0
+    for chunk in chunks:
+        end = start + len(chunk)
+        span_annotations.append((start, end))
+        start = end
+    return span_annotations

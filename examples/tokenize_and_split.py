@@ -17,8 +17,8 @@ def main():
     # Load tokenizer and model
     
     
-    tokenizer = AutoTokenizer.from_pretrained('jinaai/jina-clip-v2', trust_remote_code=True)
-    model = AutoModel.from_pretrained('jinaai/jina-clip-v2', trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained('BAAI/bge-m3', trust_remote_code=True)
+    model = AutoModel.from_pretrained('BAAI/bge-m3', trust_remote_code=True)
     
     # tokenizer = AutoTokenizer.from_pretrained('jinaai/jina-embeddings-v2-base-en', trust_remote_code=True)
     # model = AutoModel.from_pretrained('jinaai/jina-embeddings-v2-base-en', trust_remote_code=True)
