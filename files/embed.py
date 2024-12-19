@@ -7,20 +7,24 @@ from joblib import Parallel, delayed
 import threading
 
 
-def text_to_token_embeddings(model, tokenizer, text, batch_size=4096):
+def text_to_token_embeddings(model, tokenizer, text, batch_size=4096, skip_beginning=0, skip_end=0):
     """
     Given a model and tokenizer from HuggingFace, return token embeddings of the input text,
-    dynamically optimizing for CUDA or CPU.
+    dynamically optimizing for CUDA or CPU, with the option to return embeddings for a subset of tokens.
 
     Args:
         model: HuggingFace model object.
         tokenizer: HuggingFace tokenizer object.
         text (str): Input text to be tokenized and processed.
         batch_size (int, optional): Maximum number of tokens to process in one batch.
+        skip_beginning (int, optional): Number of tokens to skip from the beginning when returning embeddings.
+        skip_end (int, optional): Number of tokens to skip from the end when returning embeddings.
 
     Returns:
-        torch.Tensor: Token embeddings of the input text.
+        torch.Tensor: Token embeddings of the subset of tokens.
     """
+    import torch
+
     # Check for CUDA availability
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
@@ -33,20 +37,17 @@ def text_to_token_embeddings(model, tokenizer, text, batch_size=4096):
         raise ValueError("Batch size is too large. Please use a batch size of 8192 or less.")
 
     # Tokenize the input text
-    tokenized_text = tokenizer(text, return_tensors="pt")
-    tokens = tokenized_text.tokens()
-
-    if len(tokens) > batch_size:
-        raise ValueError("Text is too long. Ensure it contains no more than batch_size tokens.")
+    tokenized_text = tokenizer(text, return_tensors="pt", padding=True, truncation=True)
+    tokens = tokenized_text["input_ids"].squeeze(0)
 
     # Move tokenized inputs to device
     tokenized_text = {k: v.to(device) for k, v in tokenized_text.items()}
 
     # Batch process the input
     outputs = []
-    for i in range(0, len(tokens), batch_size):
+    for i in range(0, tokenized_text["input_ids"].size(1), batch_size):
         start = i
-        end = min(i + batch_size, len(tokens))
+        end = min(i + batch_size, tokenized_text["input_ids"].size(1))
 
         # Subset tokenized inputs for the current batch
         batch_inputs = {k: v[:, start:end] for k, v in tokenized_text.items()}
@@ -58,9 +59,17 @@ def text_to_token_embeddings(model, tokenizer, text, batch_size=4096):
         outputs.append(model_output.last_hidden_state)
 
     # Concatenate outputs along the token dimension
-    model_output = torch.cat(outputs, dim=1)
+    all_embeddings = torch.cat(outputs, dim=1)
 
-    return model_output
+    # Apply skip_beginning and skip_end to the embeddings
+    if skip_beginning + skip_end >= all_embeddings.size(1):
+        raise ValueError("The combination of skip_beginning and skip_end is greater than or equal to the number of tokens.")
+
+    subset_embeddings = all_embeddings[:, skip_beginning:all_embeddings.size(1) - skip_end, :]
+
+    return subset_embeddings
+
+
 
 def count_tokens(tokenizer, text):
     """

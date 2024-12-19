@@ -46,7 +46,7 @@ def main():
 
     # Generate token embeddings for the combined text
     print("\nGenerating token embeddings...")
-    token_embeddings = text_to_token_embeddings(model, tokenizer, combined_text, batch_size=512)
+    token_embeddings = text_to_token_embeddings(model, tokenizer, combined_text, batch_size=512, skip_beginning=2, skip_end=2)
     print("Token embeddings generated with shape:", token_embeddings.shape)
 
     # Apply late chunking
