@@ -24,7 +24,6 @@ def main():
     # ]
 
     # Alternatively, use a single text input and split it into sentences
-    # Uncomment the following lines to use text and split_to_sentences instead of pre_chunked_text
     text = "Transformers are a powerful tool for NLP tasks. They enable the use of pre-trained models. These models can be fine-tuned for specific applications."
     sentence_split_regex = r'(?<=[.!?]) +'
     token_limit = 50  # Adjust token limit as needed
@@ -62,7 +61,7 @@ def main():
 
     # Connect to Weaviate
     print("\nConnecting to Weaviate...")
-    client = connect_to_weaviate("test_late_chunking", delete_existing=True)
+    client = connect_to_weaviate("test_late_chunking", delete_existing=False)
 
     # Upload results to Weaviate
     print("\nUploading to Weaviate...")
