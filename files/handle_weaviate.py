@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
 import weaviate
+# from weaviate import WeaviateClient
 import weaviate.classes as wvc
 import weaviate.classes.config as wvcc
 
@@ -42,7 +43,7 @@ def connect_to_weaviate(collection_name, delete_existing=False):
 def add_to_weaviate(client, collection_name, chunks, chunk_embeddings):
     """
     Adds late_chunking results (chunks and their embeddings) to a Weaviate collection.
-    
+
     Args:
         client (weaviate.Client): Weaviate client instance.
         collection_name (str): Name of the collection to insert data into.
@@ -50,18 +51,34 @@ def add_to_weaviate(client, collection_name, chunks, chunk_embeddings):
         chunk_embeddings (List[np.ndarray]): List of embeddings corresponding to each chunk.
     """
     print(f"Inserting {len(chunks)} chunks into collection '{collection_name}'...")
+    collection = client.collections.get(collection_name)
 
-    # Add each chunk as a data object
-    for i, chunk in enumerate(chunks):
-        client.batch.add_data_object(
-            data_object={"content": chunk},
-            class_name=collection_name,
-            vector=chunk_embeddings[i].tolist()
+    # add data with manual embeddings
+    data = []
+    for i in range(len(chunks)):
+        data.append(wvc.data.DataObject(
+                properties={
+                    "content": chunks[i]
+                    
+                },
+                vector = chunk_embeddings[i].tolist()
         )
+    )
 
-    # Finalize batch creation
-    client.batch.create_objects()
+    collection.data.insert_many(data);
+
+    # # Create and insert objects directly into the collection using Weaviate's batch interface
+    # with client.batch as batch:
+    #     for i, chunk in enumerate(chunks):
+    #         batch.add_data_object(
+    #             data_object={"content": chunk},
+    #             class_name=collection_name,
+    #             vector=chunk_embeddings[i].tolist()
+    #         )
+
     print("Data inserted successfully.")
+
+
 
 
 

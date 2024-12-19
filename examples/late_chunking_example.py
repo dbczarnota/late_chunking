@@ -9,18 +9,26 @@ from rich import print
 from transformers import AutoTokenizer, AutoModel
 from files.embed import text_to_token_embeddings, late_chunking, char_to_token_spans, get_span_annotations_from_text, clean_up
 from files.handle_weaviate import connect_to_weaviate, add_to_weaviate
+from files.sentence_chunkers import split_to_sentences
 
 def main():
     # Load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained('BAAI/bge-m3', trust_remote_code=True)
     model = AutoModel.from_pretrained('BAAI/bge-m3', trust_remote_code=True)
 
-    # Sample pre-chunked text input
-    pre_chunked_text = [
-        "Transformers are a powerful tool for NLP tasks.",
-        "They enable the use of pre-trained models.",
-        "These models can be fine-tuned for specific applications."
-    ]
+    # # Sample pre-chunked text input
+    # pre_chunked_text = [
+    #     "Transformers are a powerful tool for NLP tasks.",
+    #     "They enable the use of pre-trained models.",
+    #     "These models can be fine-tuned for specific applications."
+    # ]
+
+    # Alternatively, use a single text input and split it into sentences
+    # Uncomment the following lines to use text and split_to_sentences instead of pre_chunked_text
+    text = "Transformers are a powerful tool for NLP tasks. They enable the use of pre-trained models. These models can be fine-tuned for specific applications."
+    sentence_split_regex = r'(?<=[.!?]) +'
+    token_limit = 50  # Adjust token limit as needed
+    pre_chunked_text = split_to_sentences(sentence_split_regex, text, tokenizer, token_limit)
 
     # Combine chunks into a single text for consistent processing
     combined_text = " ".join(pre_chunked_text)
@@ -46,6 +54,11 @@ def main():
     print("\nApplying late chunking...")
     token_embeddings = token_embeddings[0]  # Unpack batch dimension
     sentence_embeddings = late_chunking(token_embeddings, token_spans)
+    
+    # Print sentence embeddings
+    print("\nSentence embeddings (first few numbers):")
+    for i, embedding in enumerate(sentence_embeddings):
+        print(f"Sentence {i + 1} embedding (first 5 values): {embedding[:5]}")
 
     # Connect to Weaviate
     print("\nConnecting to Weaviate...")
@@ -54,7 +67,8 @@ def main():
     # Upload results to Weaviate
     print("\nUploading to Weaviate...")
     add_to_weaviate(client, "test_late_chunking", pre_chunked_text, sentence_embeddings)
-
+    client.close()
+    
     # Cleanup
     try:
         clean_up()
