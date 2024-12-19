@@ -26,7 +26,7 @@ def main():
     # Alternatively, use a single text input and split it into sentences
     text = "Transformers are a powerful tool for NLP tasks. They enable the use of pre-trained models. These models can be fine-tuned for specific applications."
     sentence_split_regex = r'(?<=[.!?]) +'
-    token_limit = 50  # Adjust token limit as needed
+    token_limit = 150  # Adjust token limit as needed
     pre_chunked_text = split_to_sentences(sentence_split_regex, text, tokenizer, token_limit)
 
     # Combine chunks into a single text for consistent processing
