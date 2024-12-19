@@ -7,6 +7,7 @@ sys.path.append(str(parent_dir))  # Add the parent directory to the Python path
 
 from ragsyslib.files.engine_debugger import EngineDebugger
 from files.sentence_chunkers import split_to_sentences, count_tokens
+from files.embed import text_to_token_embeddings
 
 import re
 
@@ -15,6 +16,7 @@ class ContextAwareChunker:
     def __init__(
         self,
         tokenizer,
+        model,
         max_sentence_length: int = 500,
         min_sentence_length: int = 20,
         sentence_split_regex: str = r'(?<=[.?!])\s+',
@@ -35,6 +37,7 @@ class ContextAwareChunker:
         - debugger: Optional debugger or logger.
         """
         self.tokenizer = tokenizer
+        self.model = model
         self.sentence_split_regex = sentence_split_regex
         self.max_sentence_length = max_sentence_length
         self.min_sentence_length = min_sentence_length
@@ -150,40 +153,121 @@ class ContextAwareChunker:
         - Avoid splitting sentences.
 
         Returns:
-        List[str]: A list of context groups.
+        List[Tuple[str, int]]: A list of tuples, each containing:
+                            (group_text, overlap_with_next_group_tokens)
         """
         groups = []
         current_group = []
         current_group_length = 0
 
-        # Iterate through the sentences and their lengths
         for i, (sentence, sentence_length) in enumerate(long_sentences):
-            # Check if adding the sentence exceeds the group limit
+            # Check if adding the sentence would exceed the group limit
             if current_group_length + sentence_length > self.context_group_token_limit:
-                # Finalize the current group
-                groups.append(" ".join(current_group))
+                # Finalize current group before adding this new sentence
+                full_group_text = " ".join(s for s, _ in current_group)
 
-                # Start a new group with overlap
+                # Extract overlap from the tail of the current_group
                 overlap_sentences = []
                 overlap_tokens = self.context_group_overlap_size
-                while overlap_tokens > 0 and current_group:
-                    last_sentence = current_group.pop()
-                    last_length = count_tokens(self.tokenizer, last_sentence)
+
+                # We'll move backwards from the end of current_group
+                temp_group = current_group[:]
+                overlap_collected = 0
+                while overlap_tokens > 0 and temp_group:
+                    last_sentence, last_length = temp_group.pop()
                     if last_length <= overlap_tokens:
-                        overlap_sentences.insert(0, last_sentence)
+                        overlap_sentences.insert(0, (last_sentence, last_length))
                         overlap_tokens -= last_length
+                        overlap_collected += last_length
                     else:
-                        break  # Stop if the sentence cannot fit entirely into the overlap
+                        # Can't fully add this sentence to overlap because it exceeds the overlap limit
+                        # We only take full sentences for overlap
+                        break
 
+                print(f"Finalized group {len(groups)} with total tokens: {current_group_length}")
+                print(f"Overlap selected for next group: {overlap_collected} tokens")
+
+                # Append the finalized group
+                groups.append((full_group_text, overlap_collected))
+
+                # Now start a new group from the overlap sentences
                 current_group = overlap_sentences
-                current_group_length = sum(count_tokens(self.tokenizer, s) for s in current_group)
+                current_group_length = sum(l for _, l in current_group)
 
-            # Add current sentence to the group
-            current_group.append(sentence)
-            current_group_length += sentence_length
+                # Add the current sentence that triggered the new group
+                current_group.append((sentence, sentence_length))
+                current_group_length += sentence_length
+            else:
+                # Just add the sentence to the current group
+                current_group.append((sentence, sentence_length))
+                current_group_length += sentence_length
 
-        # Add the final group if any sentences remain
+        # Handle the last group if any sentences remain
         if current_group:
-            groups.append(" ".join(current_group))
+            print(f"Finalized last group {len(groups)} with total tokens: {current_group_length}")
+            print("No next group, overlap: 0 tokens")
+            groups.append((" ".join(s for s, _ in current_group), 0))
 
         return groups
+
+    
+    
+    def create_token_embeddings(self, groups):
+        """
+        Create token embeddings for each context group while handling overlaps.
+
+        Approach:
+        - For the first group: skip_end = half overlap; skip_beginning = 0
+        - For subsequent groups: skip_end = half overlap;
+        skip_beginning = number of leading tokens that appear in the previous group's adjusted tokens,
+        stopping as soon as we find a token not present in the previous group's adjusted tokens.
+        """
+
+        results = []
+        previous_adjusted_tokens = []
+
+        for i, (group_text, overlap_with_next_tokens) in enumerate(groups):
+            # Half of current group's overlap at the end
+            skip_end = overlap_with_next_tokens // 2
+
+            # Tokenize the current group
+            tokenized = self.tokenizer(group_text, return_offsets_mapping=True, add_special_tokens=False)
+            tokens = tokenized.tokens()
+
+            if i == 0:
+                # First group:
+                skip_beginning = 0
+            else:
+                skip_beginning = 0
+            # Find the longest suffix of previous_adjusted_tokens that matches a prefix of tokens
+            max_possible_overlap = min(len(previous_adjusted_tokens), len(tokens))
+            for n in range(max_possible_overlap, 0, -1):
+                if previous_adjusted_tokens[-n:] == tokens[:n]:
+                    skip_beginning = n
+                    break
+
+            # Debug:
+            print(f"Processing Group {i+1}/{len(groups)}:")
+            print(f"Full Group Text: {group_text}")
+            print(f"Overlap with next group (full): {overlap_with_next_tokens} tokens")
+            print(f"Skip Beginning: {skip_beginning}")
+            print(f"Skip End (half current overlap): {skip_end}")
+            print(f"Original Tokens ({len(tokens)}): {tokens}")
+
+            group_embeddings = text_to_token_embeddings(
+                model=self.model,
+                tokenizer=self.tokenizer,
+                text=group_text,
+                batch_size=self.context_group_token_limit,
+                skip_beginning=skip_beginning,
+                skip_end=skip_end,
+            )
+
+            # Adjust tokens based on skipping
+            adjusted_tokens = tokens[skip_beginning: len(tokens) - skip_end if skip_end > 0 else None]
+            print(f"Adjusted Tokens ({len(adjusted_tokens)}): {adjusted_tokens}\n")
+
+            results.append((adjusted_tokens, group_embeddings))
+            previous_adjusted_tokens = adjusted_tokens  # Update for the next iteration
+
+        return results
