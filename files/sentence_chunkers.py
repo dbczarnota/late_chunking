@@ -1,7 +1,7 @@
 
 import re
 from .embed import count_tokens
-
+from rich import print
 
 def split_to_sentences(sentence_split_regex, text, tokenizer, token_limit):
     """
@@ -16,7 +16,11 @@ def split_to_sentences(sentence_split_regex, text, tokenizer, token_limit):
     Returns:
     - List[str]: A list of processed sentences.
     """
-    single_sentences_list = re.split(sentence_split_regex, text)
+    text = text.strip()
+    single_sentences_list = list(filter(None, re.split(sentence_split_regex, text)))
+
+    # single_sentences_list = re.split(sentence_split_regex, text)
+    print(f"Single sentences list: {single_sentences_list}")
     processed_sentences = []
 
     for sentence in single_sentences_list:
