@@ -11,6 +11,7 @@ from files.embed import text_to_token_embeddings
 import pandas as pd
 import numpy as np
 import re
+from scipy.spatial.distance import cosine
 
 
 class ContextAwareChunker:
@@ -338,16 +339,19 @@ class ContextAwareChunker:
 
     def generate_pooled_embeddings(self, span_annotations, combined_table):
         """
-        Generates pooled embeddings based on span annotations and the Combined Table.
+        Generates pooled embeddings and corresponding tokens based on span annotations
+        and the Combined Table.
 
         Parameters:
         - span_annotations (List[Tuple[int, int]]): Token spans (start, end) for each chunk.
         - combined_table (pd.DataFrame): A DataFrame with tokens and their corresponding embeddings.
 
         Returns:
-        - List[np.ndarray]: A list of pooled embeddings for each span.
+        - List[Tuple[np.ndarray, List[str]]]: A list of tuples for each span, where each tuple contains:
+            - Pooled embedding (np.ndarray)
+            - List of tokens corresponding to the span
         """
-        pooled_embeddings = []
+        pooled_results = []
 
         for start_token, end_token in span_annotations:
             # Filter Combined Table for tokens within the span
@@ -359,8 +363,63 @@ class ContextAwareChunker:
             # Pool the embeddings (e.g., mean pooling)
             pooled_embedding = np.mean(span_embeddings, axis=0)
 
-            pooled_embeddings.append(pooled_embedding)
+            # Extract tokens for the span
+            tokens = span_data["Token"].tolist()
 
-        return pooled_embeddings
+            # Append both the pooled embedding and the tokens
+            pooled_results.append((pooled_embedding, tokens))
+
+        return pooled_results
 
 
+    def compare_chunk_distances(self, combined_table, span_annotations):
+        """
+        Computes distances between adjacent chunks.
+
+        Parameters:
+        - combined_table (pd.DataFrame): The combined table containing token embeddings and tokens.
+        - span_annotations (List[Tuple[int, int]]): Token spans for three chunks.
+
+        Returns:
+        - dict: A dictionary with distances and tokens for the chunks:
+        {
+            "chunk1_chunk2": {
+                "distance": float,
+                "tokens1": List[str],
+                "tokens2": List[str]
+            },
+            "chunk2_chunk3": {
+                "distance": float,
+                "tokens1": List[str],
+                "tokens2": List[str]
+            }
+        }
+        """
+        # Generate pooled embeddings and tokens for the chunks
+        pooled_results = self.generate_pooled_embeddings(span_annotations, combined_table)
+        
+        # Check that we have exactly three results
+        if len(pooled_results) != 3:
+            raise ValueError("Expected exactly three chunks in span_annotations.")
+
+        # Extract pooled embeddings and tokens
+        embedding1, tokens1 = pooled_results[0]
+        embedding2, tokens2 = pooled_results[1]
+        embedding3, tokens3 = pooled_results[2]
+
+        # Calculate distances
+        chunk1_chunk2 = {
+            "distance": cosine(embedding1, embedding2),
+            "tokens1": tokens1,
+            "tokens2": tokens2
+        }
+        chunk2_chunk3 = {
+            "distance": cosine(embedding2, embedding3),
+            "tokens1": tokens2,
+            "tokens2": tokens3
+        }
+
+        return {
+            "chunk1_chunk2": chunk1_chunk2,
+            "chunk2_chunk3": chunk2_chunk3
+        }

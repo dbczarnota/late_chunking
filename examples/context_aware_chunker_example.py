@@ -11,7 +11,7 @@ from files.context_aware_chunker import ContextAwareChunker
 from files.embed import clean_up
 
 # A longer text excerpt (public domain - "Alice's Adventures in Wonderland")
-text = """Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: | once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, "and what is the use of a book," thought Alice "without pictures or conversations?"
+text = """Alice was beginning to get very tired of sitting by Initialize the tokenizer and the ContextAwareChunker.her sister on the bank, and of having nothing to do: | once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, "and what is the use of a book," thought Alice "without pictures or conversations?"
 
 So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), 
 whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, 
@@ -83,8 +83,22 @@ pooled_embeddings = chunker.generate_pooled_embeddings(span_annotations, combine
 
 # Debugging output for pooled embeddings
 print("\nPooled Embeddings (First 3):")
-for i, embedding in enumerate(pooled_embeddings[:3]):
+for i, (embedding, tokens) in enumerate(pooled_embeddings[:3]):
     print(f"Pooled Embedding {i + 1} (First 5 values): {embedding[:5]}")
+    print(f"Tokens in Pooled Embedding {i + 1}: {tokens}")
+
+# Compare distances between chunks and retrieve tokens
+print("\nComparing distances between chunks...")
+span_annotations = [(0, 5), (5, 10), (10, 15)]  # Replace with actual token spans from your text
+distances = chunker.compare_chunk_distances(combined_table, span_annotations)
+
+# Print distances and tokens
+print("\nChunk Distances and Tokens:")
+for key, value in distances.items():
+    print(f"{key}:")
+    print(f"  Distance: {value['distance']:.4f}")
+    print(f"  Tokens in Chunk 1: {value['tokens1']}")
+    print(f"  Tokens in Chunk 2: {value['tokens2']}")
 
 
 # Cleanup
