@@ -423,3 +423,86 @@ class ContextAwareChunker:
             "chunk1_chunk2": chunk1_chunk2,
             "chunk2_chunk3": chunk2_chunk3
         }
+
+    def compare_sentence_distances(self, text):
+        """
+        Compare the distances between a sentence and its previous and next sentence in the text.
+
+        Parameters:
+        - text (str): Input text to process.
+
+        Returns:
+        - List[Dict]: A list of dictionaries, where each dictionary contains:
+          - 'sentence': The sentence being analyzed.
+          - 'previous_distance': Distance to the previous sentence (if available).
+          - 'next_distance': Distance to the next sentence (if available).
+          - 'tokens': The tokens of the current sentence.
+          - 'previous_tokens': Tokens of the previous sentence (if available).
+          - 'next_tokens': Tokens of the next sentence (if available).
+        """
+        results = []
+
+        # Step 1: Split text into long sentences
+        long_sentences = self.split_to_long_sentences(text)
+
+        # Step 2: Tokenize the full text for embedding generation
+        full_text = " ".join(sentence[0] for sentence in long_sentences)
+        tokenized_full_text = self.tokenizer(full_text, return_offsets_mapping=True, add_special_tokens=False)
+        tokens = tokenized_full_text.tokens()
+
+        # Generate embeddings for all tokens
+        token_embeddings = text_to_token_embeddings(
+            model=self.model,
+            tokenizer=self.tokenizer,
+            text=full_text,
+            batch_size=512
+        )
+
+        # Combine tokens and embeddings into a table
+        token_embeddings_with_tokens = [(tokens, token_embeddings)]
+        combined_table = self.combine_group_tables(token_embeddings_with_tokens)
+
+        # Step 3: Iterate over each sentence and calculate distances
+        for i, (sentence, token_count, (start, end)) in enumerate(long_sentences):
+            # Get span annotations for current, previous, and next sentences
+            current_span = [(start, end)]
+
+            # Check previous sentence
+            if i > 0:
+                previous_sentence = long_sentences[i - 1]
+                previous_span = [(previous_sentence[2][0], previous_sentence[2][1])]
+            else:
+                previous_span = None
+
+            # Check next sentence
+            if i < len(long_sentences) - 1:
+                next_sentence = long_sentences[i + 1]
+                next_span = [(next_sentence[2][0], next_sentence[2][1])]
+            else:
+                next_span = None
+
+            # Calculate distances using compare_chunk_distances
+            sentence_result = {
+                "sentence": sentence,
+                "tokens": combined_table.iloc[start:end]["Token"].tolist()
+            }
+
+            if previous_span:
+                previous_distances = self.compare_chunk_distances(combined_table, previous_span + current_span)
+                sentence_result["previous_distance"] = previous_distances["chunk1_chunk2"]["distance"]
+                sentence_result["previous_tokens"] = previous_distances["chunk1_chunk2"]["tokens1"]
+            else:
+                sentence_result["previous_distance"] = None
+                sentence_result["previous_tokens"] = None
+
+            if next_span:
+                next_distances = self.compare_chunk_distances(combined_table, current_span + next_span)
+                sentence_result["next_distance"] = next_distances["chunk1_chunk2"]["distance"]
+                sentence_result["next_tokens"] = next_distances["chunk1_chunk2"]["tokens2"]
+            else:
+                sentence_result["next_distance"] = None
+                sentence_result["next_tokens"] = None
+
+            results.append(sentence_result)
+
+        return results
