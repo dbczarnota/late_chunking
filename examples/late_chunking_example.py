@@ -6,12 +6,16 @@ parent_dir = script_dir.parent  # Get the parent directory of the current script
 sys.path.append(str(parent_dir))  # Add the parent directory to the Python path
 
 from rich import print
+import os
 from transformers import AutoTokenizer, AutoModel
 from files.embed import text_to_token_embeddings, late_chunking, char_to_token_spans, get_span_annotations_from_text, clean_up
 from files.handle_weaviate import connect_to_weaviate, add_to_weaviate
 from files.sentence_chunkers import split_to_sentences
 
 def main():
+    
+    # os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Disable CUDA for the current session
+    
     # Load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained('BAAI/bge-m3', trust_remote_code=True)
     model = AutoModel.from_pretrained('BAAI/bge-m3', trust_remote_code=True)
@@ -61,7 +65,7 @@ def main():
 
     # Connect to Weaviate
     print("\nConnecting to Weaviate...")
-    client = connect_to_weaviate("test_late_chunking", delete_existing=False)
+    client = connect_to_weaviate("test_late_chunking", delete_existing=True)
 
     # Upload results to Weaviate
     print("\nUploading to Weaviate...")

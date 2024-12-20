@@ -76,6 +76,17 @@ print(combined_table.head())
 print("\nCombined Table Summary:")
 print(combined_table.info())
 
+# Generate pooled embeddings using span annotations and the Combined Table
+print("\nGenerating pooled embeddings...")
+span_annotations = [(0, 5), (5, 10), (10, 15)]  # Replace with actual token spans from your text
+pooled_embeddings = chunker.generate_pooled_embeddings(span_annotations, combined_table)
+
+# Debugging output for pooled embeddings
+print("\nPooled Embeddings (First 3):")
+for i, embedding in enumerate(pooled_embeddings[:3]):
+    print(f"Pooled Embedding {i + 1} (First 5 values): {embedding[:5]}")
+
+
 # Cleanup
 try:
     clean_up()

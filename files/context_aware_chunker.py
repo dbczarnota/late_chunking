@@ -336,4 +336,31 @@ class ContextAwareChunker:
         return df
 
 
+    def generate_pooled_embeddings(self, span_annotations, combined_table):
+        """
+        Generates pooled embeddings based on span annotations and the Combined Table.
+
+        Parameters:
+        - span_annotations (List[Tuple[int, int]]): Token spans (start, end) for each chunk.
+        - combined_table (pd.DataFrame): A DataFrame with tokens and their corresponding embeddings.
+
+        Returns:
+        - List[np.ndarray]: A list of pooled embeddings for each span.
+        """
+        pooled_embeddings = []
+
+        for start_token, end_token in span_annotations:
+            # Filter Combined Table for tokens within the span
+            span_data = combined_table.iloc[start_token:end_token]
+
+            # Extract embeddings for the span
+            span_embeddings = np.stack(span_data["Embedding"].values)
+
+            # Pool the embeddings (e.g., mean pooling)
+            pooled_embedding = np.mean(span_embeddings, axis=0)
+
+            pooled_embeddings.append(pooled_embedding)
+
+        return pooled_embeddings
+
 
