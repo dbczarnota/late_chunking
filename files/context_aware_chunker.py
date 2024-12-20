@@ -451,10 +451,12 @@ class ContextAwareChunker:
 
         for i, (current_sentence, _, current_span) in enumerate(long_sentences):
             result = {
-                "sentence": current_sentence,
+                "current_sentence": current_sentence,
                 "previous": None,
                 "next": None
             }
+
+            print(f"\n[bold yellow]Sentence {i + 1}:[/bold yellow] {current_sentence}")
 
             # Prepare token spans for current sentence
             current_token_span = [(current_span[0], current_span[1])]
@@ -466,10 +468,15 @@ class ContextAwareChunker:
                 distances = self.compare_chunk_distances(combined_table, previous_token_span + current_token_span)
 
                 result["previous"] = {
-                    "distance": distances["chunk1_chunk2"]["distance"],
-                    "tokens1": distances["chunk1_chunk2"]["tokens1"],
-                    "tokens2": distances["chunk1_chunk2"]["tokens2"]
+                    "distance": distances['chunk1_chunk2']['distance'],
+                    "tokens1": distances['chunk1_chunk2']['tokens1'],
+                    "tokens2": distances['chunk1_chunk2']['tokens2']
                 }
+
+                print(f"Distance to previous: {distances['chunk1_chunk2']['distance']:.4f}")
+                print(f"Tokens: {distances['chunk1_chunk2']['tokens1']} => {distances['chunk1_chunk2']['tokens2']}")
+            else:
+                print("No previous sentence comparison available.")
 
             # If not the last sentence, compare with the next one
             if i < len(long_sentences) - 1:
@@ -478,10 +485,15 @@ class ContextAwareChunker:
                 distances = self.compare_chunk_distances(combined_table, current_token_span + next_token_span)
 
                 result["next"] = {
-                    "distance": distances["chunk1_chunk2"]["distance"],
-                    "tokens1": distances["chunk1_chunk2"]["tokens1"],
-                    "tokens2": distances["chunk1_chunk2"]["tokens2"]
+                    "distance": distances['chunk1_chunk2']['distance'],
+                    "tokens1": distances['chunk1_chunk2']['tokens1'],
+                    "tokens2": distances['chunk1_chunk2']['tokens2']
                 }
+
+                print(f"Distance to next: {distances['chunk1_chunk2']['distance']:.4f}")
+                print(f"Tokens: {distances['chunk1_chunk2']['tokens1']} => {distances['chunk1_chunk2']['tokens2']}")
+            else:
+                print("No next sentence comparison available.")
 
             results.append(result)
 

@@ -47,20 +47,7 @@ chunker = ContextAwareChunker(
 print("\n[bold green]Comparing sentence distances:[/bold green]")
 distance_results = chunker.compare_sentence_distances(text)
 
-# Print the results
-for i, result in enumerate(distance_results, start=1):
-    print(f"\n[bold yellow]Sentence {i}:[/bold yellow] {result['current_sentence']}")
-    if "previous" in result and result["previous"] is not None:
-        print(f"Distance to previous: {result['previous']['distance']:.4f}")
-        print(f"Tokens: {result['previous']['tokens1']} => {result['previous']['tokens2']}")
-    else:
-        print("No previous sentence comparison available.")
 
-    if "next" in result and result["next"] is not None:
-        print(f"Distance to next: {result['next']['distance']:.4f}")
-        print(f"Tokens: {result['next']['tokens1']} => {result['next']['tokens2']}")
-    else:
-        print("No next sentence comparison available.")
 
 # Cleanup
 try:
