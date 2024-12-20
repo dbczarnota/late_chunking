@@ -423,57 +423,66 @@ class ContextAwareChunker:
             "chunk1_chunk2": chunk1_chunk2,
         }
 
-    def compare_sentence_distances(self, long_sentences):
+    def compare_sentence_distances(self, text):
         """
-        Compares distances between sentences using sentence embeddings.
+        Compare distances between sentences using embeddings.
 
         Args:
-            long_sentences: List of tuples from `split_to_long_sentences`:
-                            (sentence, token_count, (start_token, end_token)).
+            text (str): Input text to process and compare.
 
         Returns:
-            List[Dict]: Each entry contains the distances and tokens for the compared sentences.
+            List[Dict]: Each entry contains the sentence, its distances to the previous and next sentences,
+            and the corresponding tokens.
         """
+        # Step 1: Split text into long sentences
+        long_sentences = self.split_to_long_sentences(text)
+
+        # Step 2: Prepare context groups from long sentences
+        context_groups = self.prepare_context_groups(long_sentences)
+
+        # Step 3: Generate token embeddings for context groups
+        token_embeddings_with_tokens = self.create_token_embeddings(context_groups)
+
+        # Step 4: Combine group tables
+        combined_table = self.combine_group_tables(token_embeddings_with_tokens)
+
+        # Step 5: Compare distances for each sentence
         results = []
 
-        for i in range(len(long_sentences) - 1):
-            current_sentence = long_sentences[i]
-            next_sentence = long_sentences[i + 1]
+        for i, (current_sentence, _, current_span) in enumerate(long_sentences):
+            result = {
+                "sentence": current_sentence,
+                "previous": None,
+                "next": None
+            }
 
-            print(f"\nComparing Sentence {i + 1} and Sentence {i + 2}:")
-            print(f"  Current Sentence: {current_sentence[0]}")
-            print(f"  Next Sentence: {next_sentence[0]}")
-            print(f"  Current Span: {current_sentence[2]}")
-            print(f"  Next Span: {next_sentence[2]}")
+            # Prepare token spans for current sentence
+            current_token_span = [(current_span[0], current_span[1])]
 
-            # Prepare groups for embedding creation
-            groups = [
-                (current_sentence[0], 0),  # Sentence text and dummy overlap for current
-                (next_sentence[0], 0)     # Sentence text and dummy overlap for next
-            ]
+            # If not the first sentence, compare with the previous one
+            if i > 0:
+                previous_sentence, _, previous_span = long_sentences[i - 1]
+                previous_token_span = [(previous_span[0], previous_span[1])]
+                distances = self.compare_chunk_distances(combined_table, previous_token_span + current_token_span)
 
-            # Generate embeddings for the groups
-            combined_table = self.combine_group_tables(
-                self.create_token_embeddings(groups)
-            )
+                result["previous"] = {
+                    "distance": distances["chunk1_chunk2"]["distance"],
+                    "tokens1": distances["chunk1_chunk2"]["tokens1"],
+                    "tokens2": distances["chunk1_chunk2"]["tokens2"]
+                }
 
-            # Define token spans for comparison
-            current_span = [(current_sentence[2][0], current_sentence[2][1])]
-            next_span = [(next_sentence[2][0], next_sentence[2][1])]
+            # If not the last sentence, compare with the next one
+            if i < len(long_sentences) - 1:
+                next_sentence, _, next_span = long_sentences[i + 1]
+                next_token_span = [(next_span[0], next_span[1])]
+                distances = self.compare_chunk_distances(combined_table, current_token_span + next_token_span)
 
-            # Compare distances between the two spans
-            distances = self.compare_chunk_distances(combined_table, current_span + next_span)
+                result["next"] = {
+                    "distance": distances["chunk1_chunk2"]["distance"],
+                    "tokens1": distances["chunk1_chunk2"]["tokens1"],
+                    "tokens2": distances["chunk1_chunk2"]["tokens2"]
+                }
 
-            print(f"  Distance: {distances['chunk1_chunk2']['distance']}")
-            print(f"  Tokens Sentence 1: {distances['chunk1_chunk2']['tokens1']}")
-            print(f"  Tokens Sentence 2: {distances['chunk1_chunk2']['tokens2']}")
-
-            results.append({
-                "current_sentence": current_sentence[0],
-                "next_sentence": next_sentence[0],
-                "distance": distances["chunk1_chunk2"]["distance"],
-                "tokens1": distances["chunk1_chunk2"]["tokens1"],
-                "tokens2": distances["chunk1_chunk2"]["tokens2"]
-            })
+            results.append(result)
 
         return results
