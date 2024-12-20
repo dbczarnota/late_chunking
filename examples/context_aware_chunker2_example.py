@@ -46,13 +46,13 @@ cleaned_text = chunker.clean_text(text)
 
 # Split into long sentences
 long_sentences = chunker.split_to_long_sentences(cleaned_text)
-print("\n[bold blue]Long Sentences:[/bold blue]")
-for i, (sentence, token_count, _) in enumerate(long_sentences):
-    print(f"Sentence {i + 1}: {sentence} (Tokens: {token_count})")
+
 
 # Prepare to compare distances
 print("\n[bold green]Comparing sentence distances:[/bold green]")
-distance_results = chunker.compare_sentence_distances(cleaned_text)
+# Compare distances between sentences
+distance_results = chunker.compare_sentence_distances(long_sentences)
+
 
 # Print the results
 for i, result in enumerate(distance_results, start=1):
