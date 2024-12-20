@@ -28,8 +28,11 @@ to see it pop down a large rabbit-hole under the hedge.
 """
 
 # Initialize the tokenizer and the ContextAwareChunker
-tokenizer = AutoTokenizer.from_pretrained("BAAI/bge-m3", trust_remote_code=True)
-model = AutoModel.from_pretrained("BAAI/bge-m3", trust_remote_code=True)
+# tokenizer = AutoTokenizer.from_pretrained("BAAI/bge-m3", trust_remote_code=True)
+# model = AutoModel.from_pretrained("BAAI/bge-m3", trust_remote_code=True)
+
+tokenizer = AutoTokenizer.from_pretrained('jinaai/jina-embeddings-v2-base-en', trust_remote_code=True)
+model     = AutoModel.from_pretrained('jinaai/jina-embeddings-v2-base-en', trust_remote_code=True)
 
 chunker = ContextAwareChunker(
     tokenizer=tokenizer,

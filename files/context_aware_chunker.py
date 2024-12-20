@@ -20,6 +20,8 @@ class ContextAwareChunker:
         self,
         tokenizer,
         model,
+        pooling_method="mean",
+        similarity_metric = "cosine",
         max_sentence_length: int = 500,
         min_sentence_length: int = 20,
         sentence_split_regex: str = r'(?<=[.?!])\s+',
@@ -41,6 +43,8 @@ class ContextAwareChunker:
         """
         self.tokenizer = tokenizer
         self.model = model
+        self.pooling_method = pooling_method
+        self.similarity_metric = similarity_metric
         self.sentence_split_regex = sentence_split_regex
         self.max_sentence_length = max_sentence_length
         self.min_sentence_length = min_sentence_length
@@ -343,95 +347,70 @@ class ContextAwareChunker:
 
 
     def generate_pooled_embeddings(self, span_annotations, combined_table):
-        """
-        Generates pooled embeddings and corresponding tokens based on span annotations
-        and the Combined Table.
-
-        Parameters:
-        - span_annotations (List[Tuple[int, int]]): Token spans (start, end) for each chunk.
-        - combined_table (pd.DataFrame): A DataFrame with tokens and their corresponding embeddings.
-
-        Returns:
-        - List[Tuple[np.ndarray, List[str]]]: A list of tuples for each span, where each tuple contains:
-            - Pooled embedding (np.ndarray)
-            - List of tokens corresponding to the span
-        """
         pooled_results = []
 
         for start_token, end_token in span_annotations:
-            # Filter Combined Table for tokens within the span
             span_data = combined_table.iloc[start_token:end_token]
-
-            # Extract embeddings for the span
             span_embeddings = np.stack(span_data["Embedding"].values)
 
-            # Pool the embeddings (e.g., mean pooling)
-            pooled_embedding = np.mean(span_embeddings, axis=0)
+            if self.pooling_method == "mean":
+                pooled_embedding = np.mean(span_embeddings, axis=0)
+            elif self.pooling_method == "max":
+                pooled_embedding = np.max(span_embeddings, axis=0)
+            elif self.pooling_method == "min":
+                pooled_embedding = np.min(span_embeddings, axis=0)
+            elif self.pooling_method == "sum":
+                pooled_embedding = np.sum(span_embeddings, axis=0)
+            elif self.pooling_method == "median":
+                pooled_embedding = np.median(span_embeddings, axis=0)
+            else:
+                raise ValueError(f"Unknown pooling method: {self.pooling_method}")
 
-            # Extract tokens for the span
             tokens = span_data["Token"].tolist()
-
-            # Append both the pooled embedding and the tokens
             pooled_results.append((pooled_embedding, tokens))
 
         return pooled_results
 
 
+
     def compare_chunk_distances(self, combined_table, span_annotations):
-        """
-        Computes distances between adjacent chunks or sentences.
-
-        Parameters:
-        - combined_table (pd.DataFrame): The combined table containing token embeddings and tokens.
-        - span_annotations (List[Tuple[int, int]]): Token spans for two or three chunks.
-
-        Returns:
-        - dict: A dictionary with distances and tokens for the chunks.
-        """
-        if len(span_annotations) < 2 or len(span_annotations) > 3:
-            raise ValueError("Expected two or three chunks in span_annotations.")
-
-        # Generate pooled embeddings and tokens for the chunks
         pooled_results = self.generate_pooled_embeddings(span_annotations, combined_table)
 
-        # Extract pooled embeddings and tokens
         embedding1, tokens1 = pooled_results[0]
         embedding2, tokens2 = pooled_results[1]
 
-        if len(span_annotations) == 3:
-            embedding3, tokens3 = pooled_results[2]
-
-        # Calculate distances
-        chunk1_chunk2 = {
-            "distance": cosine(embedding1, embedding2),
-            "tokens1": tokens1,
-            "tokens2": tokens2,
-        }
-
-        if len(span_annotations) == 3:
-            chunk2_chunk3 = {
-                "distance": cosine(embedding2, embedding3),
-                "tokens1": tokens2,
-                "tokens2": tokens3,
-            }
-            return {
-                "chunk1_chunk2": chunk1_chunk2,
-                "chunk2_chunk3": chunk2_chunk3,
-            }
+        if self.similarity_metric == "cosine":
+            distance = cosine(embedding1, embedding2)
+        elif self.similarity_metric == "euclidean":
+            distance = np.linalg.norm(embedding1 - embedding2)
+        elif self.similarity_metric == "manhattan":
+            distance = np.sum(np.abs(embedding1 - embedding2))
+        elif self.similarity_metric == "dot_product":
+            distance = np.dot(embedding1, embedding2)
+        elif self.similarity_metric == "pearson":
+            distance = np.corrcoef(embedding1, embedding2)[0, 1]
+        else:
+            raise ValueError(f"Unknown similarity metric: {self.similarity_metric}")
 
         return {
-            "chunk1_chunk2": chunk1_chunk2,
+            "chunk1_chunk2": {
+                "distance": distance,
+                "tokens1": tokens1,
+                "tokens2": tokens2,
+            }
         }
 
-    def compare_sentence_distances(self, text):
+
+    def compare_sentence_distances(self, text, num_neighbors=3):
         """
         Compare distances between sentences using embeddings.
 
         Args:
             text (str): Input text to process and compare.
+            num_neighbors (int): Number of previous and next sentences to pool.
 
         Returns:
-            List[Dict]: Each entry contains the sentence, its distances to the previous and next sentences,
+            List[Dict]: Each entry contains the sentence, its distances to the pooled previous and next sentences,
             and the corresponding tokens.
         """
         # Step 1: Split text into long sentences
@@ -461,11 +440,12 @@ class ContextAwareChunker:
             # Prepare token spans for current sentence
             current_token_span = [(current_span[0], current_span[1])]
 
-            # If not the first sentence, compare with the previous one
+            # Pool previous sentences if available
             if i > 0:
-                previous_sentence, _, previous_span = long_sentences[i - 1]
-                previous_token_span = [(previous_span[0], previous_span[1])]
-                distances = self.compare_chunk_distances(combined_table, previous_token_span + current_token_span)
+                start_idx = max(0, i - num_neighbors)
+                previous_spans = [long_sentences[j][2] for j in range(start_idx, i)]
+                pooled_previous_span = (previous_spans[0][0], previous_spans[-1][1])
+                distances = self.compare_chunk_distances(combined_table, [pooled_previous_span] + current_token_span)
 
                 result["previous"] = {
                     "distance": distances['chunk1_chunk2']['distance'],
@@ -473,16 +453,17 @@ class ContextAwareChunker:
                     "tokens2": distances['chunk1_chunk2']['tokens2']
                 }
 
-                print(f"Distance to previous: {distances['chunk1_chunk2']['distance']:.4f}")
+                print(f"Distance to pooled previous: {distances['chunk1_chunk2']['distance']:.4f}")
                 print(f"Tokens: {distances['chunk1_chunk2']['tokens1']} => {distances['chunk1_chunk2']['tokens2']}")
             else:
-                print("No previous sentence comparison available.")
+                print("No pooled previous sentence comparison available.")
 
-            # If not the last sentence, compare with the next one
+            # Pool next sentences if available
             if i < len(long_sentences) - 1:
-                next_sentence, _, next_span = long_sentences[i + 1]
-                next_token_span = [(next_span[0], next_span[1])]
-                distances = self.compare_chunk_distances(combined_table, current_token_span + next_token_span)
+                end_idx = min(len(long_sentences), i + 1 + num_neighbors)
+                next_spans = [long_sentences[j][2] for j in range(i + 1, end_idx)]
+                pooled_next_span = (next_spans[0][0], next_spans[-1][1])
+                distances = self.compare_chunk_distances(combined_table, current_token_span + [pooled_next_span])
 
                 result["next"] = {
                     "distance": distances['chunk1_chunk2']['distance'],
@@ -490,10 +471,10 @@ class ContextAwareChunker:
                     "tokens2": distances['chunk1_chunk2']['tokens2']
                 }
 
-                print(f"Distance to next: {distances['chunk1_chunk2']['distance']:.4f}")
+                print(f"Distance to pooled next: {distances['chunk1_chunk2']['distance']:.4f}")
                 print(f"Tokens: {distances['chunk1_chunk2']['tokens1']} => {distances['chunk1_chunk2']['tokens2']}")
             else:
-                print("No next sentence comparison available.")
+                print("No pooled next sentence comparison available.")
 
             results.append(result)
 
