@@ -8,7 +8,7 @@ sys.path.append(str(parent_dir))  # Add the parent directory to the Python path
 from rich import print
 from transformers import AutoTokenizer, AutoModel
 from files.context_aware_chunker import ContextAwareChunker
-from files.embed import text_to_token_embeddings, clean_up
+from files.embed import clean_up
 
 # A longer text excerpt (public domain - "Alice's Adventures in Wonderland")
 text = """Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: | once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, "and what is the use of a book," thought Alice "without pictures or conversations?"
@@ -43,7 +43,6 @@ chunker = ContextAwareChunker(
 
 # Clean the text (optional, depending on your needs)
 cleaned_text = chunker.clean_text(text)
-# cleaned_text = text
 
 # Split into long sentences
 long_sentences = chunker.split_to_long_sentences(cleaned_text)
@@ -65,7 +64,17 @@ for i, (tokens, embedding) in enumerate(token_embeddings_with_tokens, start=1):
     print(f"\n--- Embedding {i} ---\nShape: {embedding.shape}\nFirst 5 values: {embedding[0][:5]}")
     print(f"Group {i} Tokens (First 5): {tokens[:5]}\nGroup {i} Tokens (Last 5): {tokens[-5:]}")
 
+# Combine group tables
+print("\nCombining group tables into a single table...")
+combined_table = chunker.combine_group_tables(token_embeddings_with_tokens)
 
+# Print some rows of the combined table for debugging
+print("\nCombined Table (First 5 rows):")
+print(combined_table.head())
+
+# Print summary of the combined table
+print("\nCombined Table Summary:")
+print(combined_table.info())
 
 # Cleanup
 try:

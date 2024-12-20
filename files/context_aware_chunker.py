@@ -8,7 +8,8 @@ sys.path.append(str(parent_dir))  # Add the parent directory to the Python path
 from ragsyslib.files.engine_debugger import EngineDebugger
 from files.sentence_chunkers import split_to_sentences, count_tokens
 from files.embed import text_to_token_embeddings
-
+import pandas as pd
+import numpy as np
 import re
 
 
@@ -169,8 +170,6 @@ class ContextAwareChunker:
         return joined_sentences
 
 
-
-
     def prepare_context_groups(self, long_sentences):
         """
         Given a list of sentences (from split_to_long_sentences), divides them into context groups.
@@ -238,8 +237,7 @@ class ContextAwareChunker:
 
         return groups
 
-    
-    
+        
     def create_token_embeddings(self, groups):
         """
         Create token embeddings for each context group while handling overlaps.
@@ -299,3 +297,43 @@ class ContextAwareChunker:
             previous_adjusted_tokens = adjusted_tokens  # Update for the next iteration
 
         return results
+
+
+    def combine_group_tables(self, token_embeddings_with_tokens):
+        """
+        Combines the token embeddings and their corresponding tokens from multiple groups into a single table.
+
+        Parameters:
+        - token_embeddings_with_tokens (List[Tuple[List[str], torch.Tensor]]): 
+            A list where each element is a tuple containing:
+            - tokens: List of tokens in the group.
+            - embeddings: Corresponding embeddings (torch.Tensor).
+
+        Returns:
+        - pd.DataFrame: A DataFrame where each row corresponds to a token and its embedding.
+        """
+        combined_data = []
+        for group_index, (tokens, embeddings) in enumerate(token_embeddings_with_tokens):
+            # Remove the batch dimension if present
+            if len(embeddings.shape) == 3 and embeddings.size(0) == 1:
+                embeddings = embeddings.squeeze(0)  # Squeeze the batch dimension
+            
+            # Iterate through tokens and their corresponding embeddings
+            for token_index, token in enumerate(tokens):
+                if token_index >= embeddings.size(0):
+                    raise IndexError(
+                        f"Token index {token_index} out of bounds for embeddings with size {embeddings.size(0)}"
+                    )
+                embedding = embeddings[token_index]
+                combined_data.append({
+                    "Group": group_index,
+                    "Token": token,
+                    "Embedding": embedding.cpu().numpy()  # Convert to NumPy for compatibility with Pandas
+                })
+
+        # Convert to a Pandas DataFrame for easier manipulation and visualization
+        df = pd.DataFrame(combined_data)
+        return df
+
+
+
