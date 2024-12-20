@@ -27,9 +27,9 @@ chunker = ContextAwareChunker(
     max_sentence_length=80,   # Maximum tokens per initially split sentence
     min_sentence_length=15,   # Minimum tokens per final 'long' sentence
     sentence_split_regex= r'(?<=[.?!|])(?=\s+|\Z)|\n{1,2}(?=\S)',  # Regex to split on punctuation followed by space
-    context_group_token_limit=250,            # Each context group can have up to 250 tokens
+    context_group_token_limit=1000,            # Each context group can have up to 250 tokens
     context_group_overlap_size=50,             # Each subsequent group overlaps the previous by 50 tokens
-    pooling_method="mean",
+    pooling_method="median",
     similarity_metric = "cosine"
 )
 

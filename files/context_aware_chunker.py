@@ -401,13 +401,14 @@ class ContextAwareChunker:
         }
 
 
-    def compare_sentence_distances(self, text, num_neighbors=3):
+    def compare_sentence_distances(self, text, num_neighbors=3, current_chunk_size=1):
         """
         Compare distances between sentences using embeddings.
 
         Args:
             text (str): Input text to process and compare.
             num_neighbors (int): Number of previous and next sentences to pool.
+            current_chunk_size (int): Number of sentences to consider as the current chunk.
 
         Returns:
             List[Dict]: Each entry contains the sentence, its distances to the pooled previous and next sentences,
@@ -428,24 +429,33 @@ class ContextAwareChunker:
         # Step 5: Compare distances for each sentence
         results = []
 
-        for i, (current_sentence, _, current_span) in enumerate(long_sentences):
+        for i in range(len(long_sentences)):
             result = {
-                "current_sentence": current_sentence,
+                "current_sentence": None,
                 "previous": None,
                 "next": None
             }
 
-            print(f"\n[bold yellow]Sentence {i + 1}:[/bold yellow] {current_sentence}")
+            # Pool current chunk of sentences
+            start_idx = max(0, i)
+            end_idx = min(len(long_sentences), i + current_chunk_size)
+            current_spans = [long_sentences[j][2] for j in range(start_idx, end_idx)]
+            pooled_current_span = (current_spans[0][0], current_spans[-1][1])
 
-            # Prepare token spans for current sentence
-            current_token_span = [(current_span[0], current_span[1])]
+            current_sentence = " ".join([long_sentences[j][0] for j in range(start_idx, end_idx)])
+            result["current_sentence"] = current_sentence
+
+            if start_idx == end_idx - 1:
+                print(f"\n[bold yellow]Current Sentence ({start_idx}):[/bold yellow] {current_sentence}")
+            else:
+                print(f"\n[bold yellow]Current Sentence (Chunk {start_idx}-{end_idx - 1}):[/bold yellow] {current_sentence}")
 
             # Pool previous sentences if available
-            if i > 0:
-                start_idx = max(0, i - num_neighbors)
-                previous_spans = [long_sentences[j][2] for j in range(start_idx, i)]
+            if start_idx > 0:
+                prev_start_idx = max(0, start_idx - num_neighbors)
+                previous_spans = [long_sentences[j][2] for j in range(prev_start_idx, start_idx)]
                 pooled_previous_span = (previous_spans[0][0], previous_spans[-1][1])
-                distances = self.compare_chunk_distances(combined_table, [pooled_previous_span] + current_token_span)
+                distances = self.compare_chunk_distances(combined_table, [pooled_previous_span, pooled_current_span])
 
                 result["previous"] = {
                     "distance": distances['chunk1_chunk2']['distance'],
@@ -459,11 +469,11 @@ class ContextAwareChunker:
                 print("No pooled previous sentence comparison available.")
 
             # Pool next sentences if available
-            if i < len(long_sentences) - 1:
-                end_idx = min(len(long_sentences), i + 1 + num_neighbors)
-                next_spans = [long_sentences[j][2] for j in range(i + 1, end_idx)]
+            if end_idx < len(long_sentences):
+                next_end_idx = min(len(long_sentences), end_idx + num_neighbors)
+                next_spans = [long_sentences[j][2] for j in range(end_idx, next_end_idx)]
                 pooled_next_span = (next_spans[0][0], next_spans[-1][1])
-                distances = self.compare_chunk_distances(combined_table, current_token_span + [pooled_next_span])
+                distances = self.compare_chunk_distances(combined_table, [pooled_current_span, pooled_next_span])
 
                 result["next"] = {
                     "distance": distances['chunk1_chunk2']['distance'],
@@ -475,6 +485,12 @@ class ContextAwareChunker:
                 print(f"Tokens: {distances['chunk1_chunk2']['tokens1']} => {distances['chunk1_chunk2']['tokens2']}")
             else:
                 print("No pooled next sentence comparison available.")
+
+            prev_distance = result['previous']['distance'] if result['previous'] else None
+            next_distance = result['next']['distance'] if result['next'] else None
+
+            if prev_distance is not None and next_distance is not None:
+                print(f"Distance to pooled previous / Distance to pooled next: {prev_distance / next_distance:.4f}")
 
             results.append(result)
 
