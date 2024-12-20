@@ -82,7 +82,7 @@ def count_tokens(tokenizer, text):
     Returns:
         int: The number of tokens in the text.
     """
-    tokenized_text = tokenizer(text, return_tensors="pt")
+    tokenized_text = tokenizer(text, return_tensors="pt", add_special_tokens=False)
     return len(tokenized_text.input_ids[0])
 
 def get_span_annotations_from_text(text, chunks):

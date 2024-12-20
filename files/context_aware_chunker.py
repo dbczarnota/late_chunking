@@ -87,13 +87,14 @@ class ContextAwareChunker:
     def split_to_long_sentences(self, text):
         """
         Splits the text into sentences using split_to_sentences, joins consecutive short sentences,
-        and returns long sentences along with their token counts.
+        and returns long sentences along with their token counts and token span annotations.
 
         Returns:
-        - List[Tuple[str, int]]: A list of tuples where each tuple contains a sentence/chunk
-        and its token count.
+        - List[Tuple[str, int, Tuple[int, int]]]: A list of tuples where each tuple contains:
+        - Sentence/chunk (str)
+        - Token count (int)
+        - Token span (Tuple[int, int]) in the tokenized representation of the original text
         """
-
         # Step 1: Split text into sentences
         sentences = split_to_sentences(
             self.sentence_split_regex, 
@@ -105,41 +106,68 @@ class ContextAwareChunker:
         joined_sentences = []
         buffer = []
         buffer_length = 0
+        buffer_token_start = 0  # Start token index for the current buffer
+        token_spans = []
 
-        # Step 2: Iterate through the sentences
+        # Step 2: Tokenize the full text for span annotations
+        tokenized_full_text = self.tokenizer(text, return_offsets_mapping=True, add_special_tokens=False)
+        tokens = tokenized_full_text.tokens()
+        offsets = tokenized_full_text.offset_mapping[0]
+
+        # Step 3: Iterate through the sentences
         for s in sentences:
             s_length = count_tokens(self.tokenizer, s)
+            tokenized_sentence = self.tokenizer(s, add_special_tokens=False, return_tensors="pt")
+            sentence_token_count = tokenized_sentence.input_ids.size(1)
 
             # Add the sentence to the buffer
             buffer.append(s)
-            buffer_length += s_length
+            buffer_length += sentence_token_count
 
             # If the buffer length exceeds max_sentence_length, split it
             if buffer_length > self.max_sentence_length:
                 chunk = []
                 chunk_length = 0
+                chunk_start_token = buffer_token_start
 
                 while buffer and chunk_length + count_tokens(self.tokenizer, buffer[0]) <= self.max_sentence_length:
                     sentence = buffer.pop(0)
                     chunk.append(sentence)
-                    chunk_length += count_tokens(self.tokenizer, sentence)
+                    sentence_length = count_tokens(self.tokenizer, sentence)
+                    chunk_length += sentence_length
 
-                joined_sentences.append((" ".join(chunk), chunk_length))
+                # Determine token span for the chunk
+                chunk_end_token = chunk_start_token + chunk_length
+                joined_sentences.append((" ".join(chunk), chunk_length, (chunk_start_token, chunk_end_token)))
+
+                # Update buffer and token start for the next chunk
                 buffer_length -= chunk_length
+                buffer_token_start = chunk_end_token
 
             # If the buffer length meets or exceeds the minimum sentence length, finalize it
             if buffer_length >= self.min_sentence_length:
                 joined_sentence = " ".join(buffer)
-                joined_sentences.append((joined_sentence, buffer_length))
+                sentence_length = count_tokens(self.tokenizer, joined_sentence)
+                token_start = buffer_token_start
+                token_end = buffer_token_start + sentence_length
+
+                joined_sentences.append((joined_sentence, sentence_length, (token_start, token_end)))
+
                 buffer = []
                 buffer_length = 0
+                buffer_token_start = token_end
 
         # If anything remains in the buffer at the end, append it as a separate sentence
         if buffer:
             joined_sentence = " ".join(buffer)
-            joined_sentences.append((joined_sentence, buffer_length))
+            sentence_length = count_tokens(self.tokenizer, joined_sentence)
+            token_start = buffer_token_start
+            token_end = buffer_token_start + sentence_length
+
+            joined_sentences.append((joined_sentence, sentence_length, (token_start, token_end)))
 
         return joined_sentences
+
 
 
 
@@ -160,7 +188,7 @@ class ContextAwareChunker:
         current_group = []
         current_group_length = 0
 
-        for i, (sentence, sentence_length) in enumerate(long_sentences):
+        for i, (sentence, sentence_length, sentence_span_annotations) in enumerate(long_sentences):
             # Check if adding the sentence would exceed the group limit
             if current_group_length + sentence_length > self.context_group_token_limit:
                 # Finalize current group before adding this new sentence
