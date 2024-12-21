@@ -40,10 +40,8 @@ chunker = ContextAwareChunker(
 # Generate chunks
 chunks = chunker.create_chunks(text)
 
-# Print the chunks
-print("\nGenerated Chunks:")
-for i, (chunk, ratio) in enumerate(chunks, start=1):
-    print(f"Chunk {i}: {chunk[:100]}...\nSplit Ratio: {ratio}\n")
+
+
 
 
 # Cleanup

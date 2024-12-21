@@ -7,7 +7,7 @@ sys.path.append(str(parent_dir))  # Add the parent directory to the Python path
 
 from ragsyslib.files.engine_debugger import EngineDebugger
 from files.sentence_chunkers import split_to_sentences
-from files.embed import text_to_token_embeddings, count_tokens, normalize_embeddings
+
 import pandas as pd
 import numpy as np
 import re
@@ -28,7 +28,7 @@ class ContextAwareChunker:
         sentence_split_regex=r'(?<=[.?!|])(?=\s+|\Z)|\n{1,2}(?=\S)',
         context_group_token_limit=8000,
         context_group_overlap_size=150,
-        normalize_embeddings=True,
+        normalize_embeddings=False,
         num_neighbors=3,
         current_chunk_size=1,
         softmin_chunk_size=50,
@@ -74,7 +74,120 @@ class ContextAwareChunker:
             self.debugger.debug("init", "Initializing ContextAwareChunker.")
     
     
+    def text_to_token_embeddings(self, text, skip_beginning=0, skip_end=0):
+        """
+        Given a model and tokenizer from HuggingFace, return token embeddings of the input text,
+        dynamically optimizing for CUDA or CPU, with the option to return embeddings for a subset of tokens.
+
+        Args:
+            model: HuggingFace model object.
+            tokenizer: HuggingFace tokenizer object.
+            text (str): Input text to be tokenized and processed.
+            batch_size (int, optional): Maximum number of tokens to process in one batch.
+            skip_beginning (int, optional): Number of tokens to skip from the beginning when returning embeddings.
+            skip_end (int, optional): Number of tokens to skip from the end when returning embeddings.
+
+        Returns:
+            Tuple[torch.Tensor, List[str]]: Token embeddings of the subset of tokens and the corresponding tokens.
+        """
+
+
+        # Check for CUDA availability
+        use_cuda = torch.cuda.is_available()
+        device = torch.device("cuda" if use_cuda else "cpu")
+        print(f"Using device: {device}")
+
+        # Move model to appropriate device
+        model = self.model.to(device)
+
+        if self.context_group_token_limit > 8192:  # Ensure batch size is within limit
+            raise ValueError("Batch size is too large. Please use a batch size of 8192 or less.")
+
+        # Tokenize the input text
+        tokenized_text = self.tokenizer(text, return_tensors="pt", padding=True, truncation=True)
+        tokens = self.tokenizer.convert_ids_to_tokens(tokenized_text["input_ids"].squeeze(0).tolist())
+
+        # Move tokenized inputs to device
+        tokenized_text = {k: v.to(device) for k, v in tokenized_text.items()}
+
+        # Batch process the input
+        outputs = []
+        for i in range(0, tokenized_text["input_ids"].size(1), self.context_group_token_limit):
+            start = i
+            end = min(i + self.context_group_token_limit, tokenized_text["input_ids"].size(1))
+
+            # Subset tokenized inputs for the current batch
+            batch_inputs = {k: v[:, start:end] for k, v in tokenized_text.items()}
+
+            # Compute embeddings with no gradient computation
+            with torch.no_grad():
+                model_output = model(**batch_inputs)
+
+            outputs.append(model_output.last_hidden_state)
+
+        # Concatenate outputs along the token dimension
+        all_embeddings = torch.cat(outputs, dim=1)
+
+        # Apply skip_beginning and skip_end to the embeddings
+        if skip_beginning + skip_end >= all_embeddings.size(1):
+            raise ValueError("The combination of skip_beginning and skip_end is greater than or equal to the number of tokens.")
+
+        subset_embeddings = all_embeddings[:, skip_beginning:all_embeddings.size(1) - skip_end, :]
+        subset_tokens = tokens[skip_beginning:len(tokens) - skip_end if skip_end > 0 else None]
+
+        return subset_embeddings, subset_tokens
     
+    def count_tokens(self, tokenizer, text):
+        """
+        Count the number of tokens in the text using the tokenizer.
+
+        Args:
+            tokenizer: HuggingFace tokenizer object.
+            text: The input text (string) to be tokenized.
+
+        Returns:
+            int: The number of tokens in the text.
+        """
+        tokenized_text = tokenizer(text, return_tensors="pt", add_special_tokens=False)
+        return len(tokenized_text.input_ids[0])
+
+    def split_to_sentences(self, sentence_split_regex, text, tokenizer, token_limit):
+        """
+        Splits the input text into sentences and ensures each sentence does not exceed the token limit.
+
+        Parameters:
+        - sentence_split_regex (str): The regex pattern to split sentences.
+        - text (str): The input text to be split.
+        - tokenizer: HuggingFace tokenizer object.
+        - token_limit (int): Maximum allowed tokens per sentence.
+
+        Returns:
+        - List[str]: A list of processed sentences.
+        """
+        text = text.strip()
+        single_sentences_list = list(filter(None, re.split(sentence_split_regex, text)))
+
+        # single_sentences_list = re.split(sentence_split_regex, text)
+        print(f"Single sentences list: {single_sentences_list}")
+        processed_sentences = []
+
+        for sentence in single_sentences_list:
+            while self.count_tokens(tokenizer, sentence) > token_limit:
+                tokenized_sentence = tokenizer(sentence, return_tensors="pt")
+                split_point = token_limit
+
+                # Find the approximate split point based on token_limit
+                sub_sentence = tokenizer.decode(tokenized_sentence.input_ids[0][:split_point], skip_special_tokens=True)
+                processed_sentences.append(sub_sentence.strip())
+
+                # Update the sentence with the remaining tokens
+                sentence = tokenizer.decode(tokenized_sentence.input_ids[0][split_point:], skip_special_tokens=True)
+
+            processed_sentences.append(sentence.strip())
+
+        return processed_sentences
+
+
     def clean_text(self, text): 
         """
         Cleans the text by removing additional newlines, tabs, and unnecessary special characters.
@@ -177,7 +290,7 @@ class ContextAwareChunker:
 
         # Step 3: Iterate through the sentences
         for s in sentences:
-            s_length = count_tokens(self.tokenizer, s)
+            s_length = self.count_tokens(self.tokenizer, s)
             tokenized_sentence = self.tokenizer(s, add_special_tokens=False, return_tensors="pt")
             sentence_token_count = tokenized_sentence.input_ids.size(1)
 
@@ -191,10 +304,10 @@ class ContextAwareChunker:
                 chunk_length = 0
                 chunk_start_token = buffer_token_start
 
-                while buffer and chunk_length + count_tokens(self.tokenizer, buffer[0]) <= self.max_sentence_length:
+                while buffer and chunk_length + self.count_tokens(self.tokenizer, buffer[0]) <= self.max_sentence_length:
                     sentence = buffer.pop(0)
                     chunk.append(sentence)
-                    sentence_length = count_tokens(self.tokenizer, sentence)
+                    sentence_length = self.count_tokens(self.tokenizer, sentence)
                     chunk_length += sentence_length
 
                 # Determine token span for the chunk
@@ -208,7 +321,7 @@ class ContextAwareChunker:
             # If the buffer length meets or exceeds the minimum sentence length, finalize it
             if buffer_length >= self.min_sentence_length:
                 joined_sentence = " ".join(buffer)
-                sentence_length = count_tokens(self.tokenizer, joined_sentence)
+                sentence_length = self.count_tokens(self.tokenizer, joined_sentence)
                 token_start = buffer_token_start
                 token_end = buffer_token_start + sentence_length
 
@@ -221,7 +334,7 @@ class ContextAwareChunker:
         # If anything remains in the buffer at the end, append it as a separate sentence
         if buffer:
             joined_sentence = " ".join(buffer)
-            sentence_length = count_tokens(self.tokenizer, joined_sentence)
+            sentence_length = self.count_tokens(self.tokenizer, joined_sentence)
             token_start = buffer_token_start
             token_end = buffer_token_start + sentence_length
 
@@ -344,11 +457,10 @@ class ContextAwareChunker:
             print(f"Skip End (half current overlap): {skip_end}")
             print(f"Original Tokens ({len(tokens)}): {tokens}")
 
-            group_embeddings = text_to_token_embeddings(
-                model=self.model,
-                tokenizer=self.tokenizer,
+            group_embeddings = self.text_to_token_embeddings(
+
                 text=group_text,
-                batch_size=self.context_group_token_limit,
+
                 skip_beginning=skip_beginning,
                 skip_end=skip_end,
             )
@@ -501,12 +613,12 @@ class ContextAwareChunker:
 
         Returns:
             List[Dict]: Each entry contains the sentence, its distances to the pooled previous and next sentences,
-            and the corresponding tokens.
+                        the corresponding tokens, and now also a "sentence_embedding".
         """
         # Step 1: Split text into long sentences
         long_sentences = self.split_to_long_sentences(text)
 
-        # Step 2: Prepare context groups from long sentences
+        # Step 2: Prepare context groups from long_sentences
         context_groups = self.prepare_context_groups(long_sentences)
 
         # Step 3: Generate token embeddings for context groups
@@ -532,18 +644,16 @@ class ContextAwareChunker:
             # Debug: Check if tokens were correctly retrieved
             if not tokens_for_original_sentence:
                 print(f"[Warning] No tokens found for Sentence {i} with Span: {sentence_span}")
-            
+
             result = {
                 "original_sentence": tokens_for_original_sentence,  # Tokens of the original sentence
                 "sentence_number": i,
                 "current_sentence": None,
                 "previous": None,
                 "next": None,
-                "prev_next_ratio": None
+                "prev_next_ratio": None,
+                # We'll add "sentence_embedding" below
             }
-
-
-
 
             # Pool current chunk of sentences
             start_idx = max(0, i)
@@ -553,6 +663,15 @@ class ContextAwareChunker:
 
             current_sentence = " ".join([long_sentences[j][0] for j in range(start_idx, end_idx)])
             result["current_sentence"] = current_sentence
+
+            # -----------------------------
+            # (A) Single-sentence embedding
+            # -----------------------------
+            single_sentence_data = combined_table.iloc[start_token:end_token]
+            single_sentence_embeddings = np.stack(single_sentence_data["Embedding"].values)
+            single_sentence_pooled = self.pool_embeddings(single_sentence_embeddings)
+            result["sentence_embedding"] = single_sentence_pooled
+            # End of the single-sentence embedding addition
 
             # Pool previous sentences if available
             if start_idx > 0:
@@ -611,7 +730,9 @@ class ContextAwareChunker:
 
         return results
 
-    def  create_chunks(self, text):
+
+
+    def create_chunks(self, text):
         """
         Create chunks from text based on softmin_chunk_size, max_chunk_size, and prev/next ratios.
         Ensures chunks start with the correct sentences after splits.
@@ -620,65 +741,84 @@ class ContextAwareChunker:
             text (str): The input text to chunk.
 
         Returns:
-            List[Tuple[str, str]]: Chunks of text with their starting point split ratios.
+            List[Tuple[str, str, np.ndarray]]:
+                [
+                (chunk_text, starting_point_ratio, chunk_embedding),
+                ...
+                ]
         """
-        # Step 1: Compare sentence distances
+        # Step 1: Compare sentence distances (same as before)
         distance_results = self.compare_sentence_distances(text)
 
         chunks = []
         current_chunk = []
+        current_chunk_embeddings = []
         current_token_count = 0
         current_max_ratio = -float("inf")
         starting_point_ratio = "N/A"  # Default for the first chunk
 
         for i, result in enumerate(distance_results):
             sentence = result["current_sentence"]
+            sentence_embedding = result["sentence_embedding"]  # The single-sentence embedding
             prev_next_ratio = result["prev_next_ratio"]
-            token_count = count_tokens(self.tokenizer, sentence)
+            token_count = self.count_tokens(self.tokenizer, sentence)
 
             # Add sentence to the current chunk
             current_chunk.append(sentence)
+            current_chunk_embeddings.append(sentence_embedding)
             current_token_count += token_count
 
+            # Preserve your existing ratio logic
             if prev_next_ratio is not None and prev_next_ratio > current_max_ratio:
                 current_max_ratio = prev_next_ratio
 
             # Check for hard split
             if prev_next_ratio is not None and prev_next_ratio >= self.hard_split_prev_next_ratio:
                 # Finalize the current chunk
-                chunks.append((" ".join(current_chunk), starting_point_ratio))
+                chunk_text = " ".join(current_chunk)
+                # Use pool_embeddings on the stacked embeddings instead of np.mean
+                chunk_embedding = self.pool_embeddings(np.stack(current_chunk_embeddings))
+
+                chunks.append((chunk_text, starting_point_ratio, chunk_embedding))
 
                 # Start a new chunk with the current sentence
                 current_chunk = [sentence]
+                current_chunk_embeddings = [sentence_embedding]
                 current_token_count = token_count
                 current_max_ratio = -float("inf")
-                starting_point_ratio = f"{prev_next_ratio:.4f}"  # Set the starting point for the new chunk
+                starting_point_ratio = f"{prev_next_ratio:.4f}"
                 continue
-
 
             # Check for softmin_chunk_size
             if current_token_count >= self.softmin_chunk_size:
-                # Stop adding sentences once max_chunk_size is reached or a split condition is found
                 if (
-                    current_token_count >= self.max_chunk_size or
-                    (prev_next_ratio is not None and prev_next_ratio > self.min_prev_next_ratio)
+                    current_token_count >= self.max_chunk_size
+                    or (prev_next_ratio is not None and prev_next_ratio > self.min_prev_next_ratio)
                 ):
                     # Finalize the current chunk
-                    chunks.append((" ".join(current_chunk), starting_point_ratio))
+                    chunk_text = " ".join(current_chunk)
+                    chunk_embedding = self.pool_embeddings(np.stack(current_chunk_embeddings))
 
-                    # Start a new chunk with the next sentence
+                    chunks.append((chunk_text, starting_point_ratio, chunk_embedding))
+
+                    # Start a new chunk
                     current_chunk = [sentence]
+                    current_chunk_embeddings = [sentence_embedding]
                     current_token_count = token_count
                     current_max_ratio = -float("inf")
-                    starting_point_ratio = f"{prev_next_ratio:.4f}"  # Set the starting point for the new chunk
+                    starting_point_ratio = f"{prev_next_ratio:.4f}"
 
         # Add any remaining text as the last chunk
         if current_chunk:
-            chunks.append((" ".join(current_chunk), starting_point_ratio))
+            chunk_text = " ".join(current_chunk)
+            chunk_embedding = self.pool_embeddings(np.stack(current_chunk_embeddings))
+            chunks.append((chunk_text, starting_point_ratio, chunk_embedding))
 
-        # Print the resulting chunks and their starting point split ratios
+        # Print the resulting chunks, just like in your original code
         print("\nChunks:")
-        for chunk, ratio in chunks:
-            print(f"Chunk: {chunk[:100]}...\nStarting Point Split Ratio: {ratio}\n")
+        for chunk, ratio, embedding in chunks:
+            print(f"Chunk: {chunk[:100]}...\nStarting Point Split Ratio: {ratio}")
+            print(f"Embedding (first 5 dims): {embedding[:5]}\n")
 
         return chunks
+
