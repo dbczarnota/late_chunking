@@ -6,7 +6,7 @@ parent_dir = script_dir.parent  # Get the parent directory of the current script
 sys.path.append(str(parent_dir))  # Add the parent directory to the Python path
 
 from ragsyslib.files.engine_debugger import EngineDebugger
-from files.sentence_chunkers import split_to_sentences
+
 
 import pandas as pd
 import numpy as np
@@ -74,7 +74,7 @@ class ContextAwareChunker:
             self.debugger.debug("init", "Initializing ContextAwareChunker.")
     
     
-    def text_to_token_embeddings(self, text, skip_beginning=0, skip_end=0):
+    def __text_to_token_embeddings(self, text, skip_beginning=0, skip_end=0):
         """
         Given a model and tokenizer from HuggingFace, return token embeddings of the input text,
         dynamically optimizing for CUDA or CPU, with the option to return embeddings for a subset of tokens.
@@ -137,7 +137,7 @@ class ContextAwareChunker:
 
         return subset_embeddings, subset_tokens
     
-    def count_tokens(self, tokenizer, text):
+    def __count_tokens(self, tokenizer, text):
         """
         Count the number of tokens in the text using the tokenizer.
 
@@ -151,7 +151,7 @@ class ContextAwareChunker:
         tokenized_text = tokenizer(text, return_tensors="pt", add_special_tokens=False)
         return len(tokenized_text.input_ids[0])
 
-    def split_to_sentences(self, sentence_split_regex, text, tokenizer, token_limit):
+    def __split_to_sentences(self, sentence_split_regex, text, tokenizer, token_limit):
         """
         Splits the input text into sentences and ensures each sentence does not exceed the token limit.
 
@@ -172,7 +172,7 @@ class ContextAwareChunker:
         processed_sentences = []
 
         for sentence in single_sentences_list:
-            while self.count_tokens(tokenizer, sentence) > token_limit:
+            while self.__count_tokens(tokenizer, sentence) > token_limit:
                 tokenized_sentence = tokenizer(sentence, return_tensors="pt")
                 split_point = token_limit
 
@@ -187,8 +187,7 @@ class ContextAwareChunker:
 
         return processed_sentences
 
-
-    def clean_text(self, text): 
+    def __clean_text(self, text): 
         """
         Cleans the text by removing additional newlines, tabs, and unnecessary special characters.
         Converts multiple newlines into a single newline.
@@ -221,7 +220,7 @@ class ContextAwareChunker:
 
         return text   
 
-    def normalize_embeddings_fc(self, embeddings):
+    def __normalize_embeddings_fc(self, embeddings):
         """
         Normalize embeddings to have unit norm.
 
@@ -256,9 +255,8 @@ class ContextAwareChunker:
 
         else:
             raise TypeError(f"Embeddings must be either a numpy array or a torch tensor. Got type: {type(embeddings)}")
-
    
-    def split_to_long_sentences(self, text):
+    def __split_to_long_sentences(self, text):
         """
         Splits the text into sentences using split_to_sentences, joins consecutive short sentences,
         and returns long sentences along with their token counts and token span annotations.
@@ -270,7 +268,7 @@ class ContextAwareChunker:
         - Token span (Tuple[int, int]) in the tokenized representation of the original text
         """
         # Step 1: Split text into sentences
-        sentences = split_to_sentences(
+        sentences = self.__split_to_sentences(
             self.sentence_split_regex, 
             text, 
             self.tokenizer, 
@@ -284,13 +282,13 @@ class ContextAwareChunker:
         token_spans = []
 
         # Step 2: Tokenize the full text for span annotations
-        tokenized_full_text = self.tokenizer(text, return_offsets_mapping=True, add_special_tokens=False)
-        tokens = tokenized_full_text.tokens()
-        offsets = tokenized_full_text.offset_mapping[0]
+        # tokenized_full_text = self.tokenizer(text, return_offsets_mapping=True, add_special_tokens=False)
+        # tokens = tokenized_full_text.tokens()
+        # offsets = tokenized_full_text.offset_mapping[0]
 
         # Step 3: Iterate through the sentences
         for s in sentences:
-            s_length = self.count_tokens(self.tokenizer, s)
+            # s_length = self.__count_tokens(self.tokenizer, s)
             tokenized_sentence = self.tokenizer(s, add_special_tokens=False, return_tensors="pt")
             sentence_token_count = tokenized_sentence.input_ids.size(1)
 
@@ -304,10 +302,10 @@ class ContextAwareChunker:
                 chunk_length = 0
                 chunk_start_token = buffer_token_start
 
-                while buffer and chunk_length + self.count_tokens(self.tokenizer, buffer[0]) <= self.max_sentence_length:
+                while buffer and chunk_length + self.__count_tokens(self.tokenizer, buffer[0]) <= self.max_sentence_length:
                     sentence = buffer.pop(0)
                     chunk.append(sentence)
-                    sentence_length = self.count_tokens(self.tokenizer, sentence)
+                    sentence_length = self.__count_tokens(self.tokenizer, sentence)
                     chunk_length += sentence_length
 
                 # Determine token span for the chunk
@@ -321,7 +319,7 @@ class ContextAwareChunker:
             # If the buffer length meets or exceeds the minimum sentence length, finalize it
             if buffer_length >= self.min_sentence_length:
                 joined_sentence = " ".join(buffer)
-                sentence_length = self.count_tokens(self.tokenizer, joined_sentence)
+                sentence_length = self.__count_tokens(self.tokenizer, joined_sentence)
                 token_start = buffer_token_start
                 token_end = buffer_token_start + sentence_length
 
@@ -334,7 +332,7 @@ class ContextAwareChunker:
         # If anything remains in the buffer at the end, append it as a separate sentence
         if buffer:
             joined_sentence = " ".join(buffer)
-            sentence_length = self.count_tokens(self.tokenizer, joined_sentence)
+            sentence_length = self.__count_tokens(self.tokenizer, joined_sentence)
             token_start = buffer_token_start
             token_end = buffer_token_start + sentence_length
 
@@ -345,7 +343,6 @@ class ContextAwareChunker:
             print(f"Sentence {i + 1}: {sentence} (Tokens: {token_count})")
             
         return joined_sentences
-
 
     def prepare_context_groups(self, long_sentences):
         """
@@ -413,8 +410,7 @@ class ContextAwareChunker:
             groups.append((" ".join(s for s, _ in current_group), 0))
 
         return groups
-
-        
+       
     def create_token_embeddings(self, groups):
         """
         Create token embeddings for each context group while handling overlaps.
@@ -457,7 +453,7 @@ class ContextAwareChunker:
             print(f"Skip End (half current overlap): {skip_end}")
             print(f"Original Tokens ({len(tokens)}): {tokens}")
 
-            group_embeddings = self.text_to_token_embeddings(
+            group_embeddings = self.__text_to_token_embeddings(
 
                 text=group_text,
 
@@ -467,7 +463,7 @@ class ContextAwareChunker:
 
             # Normalize embeddings if specified
             if self.normalize_embeddings:
-                group_embeddings = self.normalize_embeddings_fc(group_embeddings[0])
+                group_embeddings = self.__normalize_embeddings_fc(group_embeddings[0])
 
             # Adjust tokens based on skipping
             adjusted_tokens = tokens[skip_beginning: len(tokens) - skip_end if skip_end > 0 else None]
@@ -477,8 +473,6 @@ class ContextAwareChunker:
             previous_adjusted_tokens = adjusted_tokens  # Update for the next iteration
 
         return results
-
-
 
     def combine_group_tables(self, token_embeddings_with_tokens):
         """
@@ -521,7 +515,6 @@ class ContextAwareChunker:
         df = pd.DataFrame(combined_data)
         return df
 
-
     def pool_embeddings(self, embeddings):
         """
         Pools the given embeddings using the class-defined pooling method.
@@ -544,7 +537,6 @@ class ContextAwareChunker:
             return np.median(embeddings, axis=0)
         else:
             raise ValueError(f"Unknown pooling method: {self.pooling_method}")
-
 
     def generate_pooled_embeddings(self, span_annotations, combined_table):
         """
@@ -574,8 +566,6 @@ class ContextAwareChunker:
 
         return pooled_results
 
-
-
     def compare_chunk_distances(self, combined_table, span_annotations):
         pooled_results = self.generate_pooled_embeddings(span_annotations, combined_table)
 
@@ -603,7 +593,6 @@ class ContextAwareChunker:
             }
         }
 
-
     def compare_sentence_distances(self, text):
         """
         Compare distances between sentences using embeddings.
@@ -616,7 +605,7 @@ class ContextAwareChunker:
                         the corresponding tokens, and now also a "sentence_embedding".
         """
         # Step 1: Split text into long sentences
-        long_sentences = self.split_to_long_sentences(text)
+        long_sentences = self.__split_to_long_sentences(text)
 
         # Step 2: Prepare context groups from long_sentences
         context_groups = self.prepare_context_groups(long_sentences)
@@ -730,8 +719,6 @@ class ContextAwareChunker:
 
         return results
 
-
-
     def create_chunks(self, text):
         """
         Create chunks from text based on softmin_chunk_size, max_chunk_size, and prev/next ratios.
@@ -761,7 +748,7 @@ class ContextAwareChunker:
             sentence = result["current_sentence"]
             sentence_embedding = result["sentence_embedding"]  # The single-sentence embedding
             prev_next_ratio = result["prev_next_ratio"]
-            token_count = self.count_tokens(self.tokenizer, sentence)
+            token_count = self.__count_tokens(self.tokenizer, sentence)
 
             # Add sentence to the current chunk
             current_chunk.append(sentence)
