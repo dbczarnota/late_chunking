@@ -6,13 +6,14 @@ parent_dir = script_dir.parent  # Get the parent directory of the current script
 sys.path.append(str(parent_dir))  # Add the parent directory to the Python path
 
 from ragsyslib.files.engine_debugger import EngineDebugger
-from files.sentence_chunkers import split_to_sentences, count_tokens
-from files.embed import text_to_token_embeddings
+from files.sentence_chunkers import split_to_sentences
+from files.embed import text_to_token_embeddings, normalize_embeddings, count_tokens
 import pandas as pd
 import numpy as np
 import re
 from scipy.spatial.distance import cosine
 from rich import print
+import torch
 
 
 class ContextAwareChunker:
@@ -21,13 +22,16 @@ class ContextAwareChunker:
         tokenizer,
         model,
         pooling_method="mean",
-        similarity_metric = "cosine",
+        similarity_metric="cosine",
         max_sentence_length: int = 500,
         min_sentence_length: int = 20,
         sentence_split_regex: str = r'(?<=[.?!])\s+',
         context_group_token_limit: int = 200,
         context_group_overlap_size: int = 50,
-        debugger = EngineDebugger("CONTEXT_AWARE_CHUNKER")
+        normalize_embeddings=False,  # New parameter for normalization
+        num_neighbors: int = 3,  # Number of neighbors to pool
+        current_chunk_size: int = 1,  # Size of the current chunk
+        debugger=EngineDebugger("CONTEXT_AWARE_CHUNKER")
     ):
         """
         Initializes the ContextAwareChunker with the necessary parameters.
@@ -39,6 +43,9 @@ class ContextAwareChunker:
         - min_sentence_length (int): Minimum token length threshold for final "long" sentences.
         - context_group_token_limit (int): Maximum number of tokens allowed in each context group.
         - context_group_overlap_size (int): Number of tokens by which consecutive groups overlap.
+        - normalize_embeddings (bool): Whether to normalize the embeddings or not.
+        - num_neighbors (int): Number of previous and next sentences to pool for distance comparison.
+        - current_chunk_size (int): Number of sentences to consider as the current chunk.
         - debugger: Optional debugger or logger.
         """
         self.tokenizer = tokenizer
@@ -50,11 +57,14 @@ class ContextAwareChunker:
         self.min_sentence_length = min_sentence_length
         self.context_group_token_limit = context_group_token_limit
         self.context_group_overlap_size = context_group_overlap_size
+        self.normalize_embeddings = normalize_embeddings
+        self.num_neighbors = num_neighbors
+        self.current_chunk_size = current_chunk_size
         self.debugger = debugger
 
         if self.debugger:
             self.debugger.debug("init", "Initializing ContextAwareChunker.")
-  
+    
     
     
     def clean_text(self, text): 
@@ -299,6 +309,10 @@ class ContextAwareChunker:
                 skip_end=skip_end,
             )
 
+            # Normalize embeddings if specified, using the imported function
+            if self.normalize_embeddings:
+                group_embeddings = normalize_embeddings(group_embeddings)
+
             # Adjust tokens based on skipping
             adjusted_tokens = tokens[skip_beginning: len(tokens) - skip_end if skip_end > 0 else None]
             print(f"Adjusted Tokens ({len(adjusted_tokens)}): {adjusted_tokens}\n")
@@ -324,6 +338,10 @@ class ContextAwareChunker:
         """
         combined_data = []
         for group_index, (tokens, embeddings) in enumerate(token_embeddings_with_tokens):
+            # Handle tuple case for embeddings
+            if isinstance(embeddings, tuple):
+                embeddings = embeddings[0]  # Extract the actual tensor part
+
             # Remove the batch dimension if present
             if len(embeddings.shape) == 3 and embeddings.size(0) == 1:
                 embeddings = embeddings.squeeze(0)  # Squeeze the batch dimension
@@ -338,7 +356,8 @@ class ContextAwareChunker:
                 combined_data.append({
                     "Group": group_index,
                     "Token": token,
-                    "Embedding": embedding.cpu().numpy()  # Convert to NumPy for compatibility with Pandas
+                    # "Embedding": embedding.cpu().numpy()  # Convert to NumPy for compatibility with Pandas
+                    "Embedding": embedding.cpu().to(torch.float32).numpy()
                 })
 
         # Convert to a Pandas DataFrame for easier manipulation and visualization
@@ -372,7 +391,6 @@ class ContextAwareChunker:
         return pooled_results
 
 
-
     def compare_chunk_distances(self, combined_table, span_annotations):
         pooled_results = self.generate_pooled_embeddings(span_annotations, combined_table)
 
@@ -401,14 +419,12 @@ class ContextAwareChunker:
         }
 
 
-    def compare_sentence_distances(self, text, num_neighbors=3, current_chunk_size=1):
+    def compare_sentence_distances(self, text):
         """
         Compare distances between sentences using embeddings.
 
         Args:
             text (str): Input text to process and compare.
-            num_neighbors (int): Number of previous and next sentences to pool.
-            current_chunk_size (int): Number of sentences to consider as the current chunk.
 
         Returns:
             List[Dict]: Each entry contains the sentence, its distances to the pooled previous and next sentences,
@@ -426,33 +442,48 @@ class ContextAwareChunker:
         # Step 4: Combine group tables
         combined_table = self.combine_group_tables(token_embeddings_with_tokens)
 
+        # Debugging: Check the structure of combined_table
+        print(f"Combined table sample:\n{combined_table.head()}")
+
         # Step 5: Compare distances for each sentence
         results = []
 
         for i in range(len(long_sentences)):
+            # Extract token span for the current sentence
+            sentence_span = long_sentences[i][2]
+            start_token, end_token = sentence_span
+
+            # Filter combined_table rows using the token span
+            tokens_for_original_sentence = combined_table.iloc[start_token:end_token]["Token"].tolist()
+
+            # Debug: Check if tokens were correctly retrieved
+            if not tokens_for_original_sentence:
+                print(f"[Warning] No tokens found for Sentence {i} with Span: {sentence_span}")
+            
             result = {
+                "original_sentence": tokens_for_original_sentence,  # Tokens of the original sentence
+                "sentence_number": i,
                 "current_sentence": None,
                 "previous": None,
-                "next": None
+                "next": None,
+                "prev_next_ratio": None
             }
+
+
+
 
             # Pool current chunk of sentences
             start_idx = max(0, i)
-            end_idx = min(len(long_sentences), i + current_chunk_size)
+            end_idx = min(len(long_sentences), i + self.current_chunk_size)
             current_spans = [long_sentences[j][2] for j in range(start_idx, end_idx)]
             pooled_current_span = (current_spans[0][0], current_spans[-1][1])
 
             current_sentence = " ".join([long_sentences[j][0] for j in range(start_idx, end_idx)])
             result["current_sentence"] = current_sentence
 
-            if start_idx == end_idx - 1:
-                print(f"\n[bold yellow]Current Sentence ({start_idx}):[/bold yellow] {current_sentence}")
-            else:
-                print(f"\n[bold yellow]Current Sentence (Chunk {start_idx}-{end_idx - 1}):[/bold yellow] {current_sentence}")
-
             # Pool previous sentences if available
             if start_idx > 0:
-                prev_start_idx = max(0, start_idx - num_neighbors)
+                prev_start_idx = max(0, start_idx - self.num_neighbors)
                 previous_spans = [long_sentences[j][2] for j in range(prev_start_idx, start_idx)]
                 pooled_previous_span = (previous_spans[0][0], previous_spans[-1][1])
                 distances = self.compare_chunk_distances(combined_table, [pooled_previous_span, pooled_current_span])
@@ -463,14 +494,9 @@ class ContextAwareChunker:
                     "tokens2": distances['chunk1_chunk2']['tokens2']
                 }
 
-                print(f"Distance to pooled previous: {distances['chunk1_chunk2']['distance']:.4f}")
-                print(f"Tokens: {distances['chunk1_chunk2']['tokens1']} => {distances['chunk1_chunk2']['tokens2']}")
-            else:
-                print("No pooled previous sentence comparison available.")
-
             # Pool next sentences if available
             if end_idx < len(long_sentences):
-                next_end_idx = min(len(long_sentences), end_idx + num_neighbors)
+                next_end_idx = min(len(long_sentences), end_idx + self.num_neighbors)
                 next_spans = [long_sentences[j][2] for j in range(end_idx, next_end_idx)]
                 pooled_next_span = (next_spans[0][0], next_spans[-1][1])
                 distances = self.compare_chunk_distances(combined_table, [pooled_current_span, pooled_next_span])
@@ -481,17 +507,33 @@ class ContextAwareChunker:
                     "tokens2": distances['chunk1_chunk2']['tokens2']
                 }
 
-                print(f"Distance to pooled next: {distances['chunk1_chunk2']['distance']:.4f}")
-                print(f"Tokens: {distances['chunk1_chunk2']['tokens1']} => {distances['chunk1_chunk2']['tokens2']}")
-            else:
-                print("No pooled next sentence comparison available.")
-
+            # Calculate prev/next ratio if both distances are available
             prev_distance = result['previous']['distance'] if result['previous'] else None
             next_distance = result['next']['distance'] if result['next'] else None
 
             if prev_distance is not None and next_distance is not None:
-                print(f"Distance to pooled previous / Distance to pooled next: {prev_distance / next_distance:.4f}")
+                result["prev_next_ratio"] = prev_distance / next_distance
 
             results.append(result)
+
+        # Informative Output Block
+        print("\n[Summary of Results]")
+        for res in results:
+            print(f"\nSentence {res['sentence_number']}: {res['original_sentence']}")
+            print(f"Current Chunk: {res['current_sentence']}")
+            if res['previous']:
+                print(f"  Distance to Previous: {res['previous']['distance']:.4f}")
+                print(f"  Tokens (Prev -> Current): {res['previous']['tokens1']} => {res['previous']['tokens2']}")
+            else:
+                print("  No pooled previous comparison available.")
+            if res['next']:
+                print(f"  Distance to Next: {res['next']['distance']:.4f}")
+                print(f"  Tokens (Current -> Next): {res['next']['tokens1']} => {res['next']['tokens2']}")
+            else:
+                print("  No pooled next comparison available.")
+            if res["prev_next_ratio"] is not None:
+                print(f"  Prev/Next Distance Ratio: {res['prev_next_ratio']:.4f}")
+            else:
+                print("  Prev/Next Distance Ratio: N/A")
 
         return results

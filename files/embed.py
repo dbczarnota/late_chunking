@@ -5,9 +5,12 @@ import torch
 import numpy as np
 from joblib import Parallel, delayed
 import threading
+import pandas as pd
+from rich import print
+from scipy.spatial.distance import cosine, euclidean, cityblock
 
 
-def text_to_token_embeddings(model, tokenizer, text, batch_size=4096, skip_beginning=0, skip_end=0):
+def text_to_token_embeddings(model, tokenizer, text, batch_size=4000, skip_beginning=0, skip_end=0):
     """
     Given a model and tokenizer from HuggingFace, return token embeddings of the input text,
     dynamically optimizing for CUDA or CPU, with the option to return embeddings for a subset of tokens.
@@ -21,9 +24,9 @@ def text_to_token_embeddings(model, tokenizer, text, batch_size=4096, skip_begin
         skip_end (int, optional): Number of tokens to skip from the end when returning embeddings.
 
     Returns:
-        torch.Tensor: Token embeddings of the subset of tokens.
+        Tuple[torch.Tensor, List[str]]: Token embeddings of the subset of tokens and the corresponding tokens.
     """
-    import torch
+
 
     # Check for CUDA availability
     use_cuda = torch.cuda.is_available()
@@ -38,7 +41,7 @@ def text_to_token_embeddings(model, tokenizer, text, batch_size=4096, skip_begin
 
     # Tokenize the input text
     tokenized_text = tokenizer(text, return_tensors="pt", padding=True, truncation=True)
-    tokens = tokenized_text["input_ids"].squeeze(0)
+    tokens = tokenizer.convert_ids_to_tokens(tokenized_text["input_ids"].squeeze(0).tolist())
 
     # Move tokenized inputs to device
     tokenized_text = {k: v.to(device) for k, v in tokenized_text.items()}
@@ -66,10 +69,219 @@ def text_to_token_embeddings(model, tokenizer, text, batch_size=4096, skip_begin
         raise ValueError("The combination of skip_beginning and skip_end is greater than or equal to the number of tokens.")
 
     subset_embeddings = all_embeddings[:, skip_beginning:all_embeddings.size(1) - skip_end, :]
+    subset_tokens = tokens[skip_beginning:len(tokens) - skip_end if skip_end > 0 else None]
 
-    return subset_embeddings
+    return subset_embeddings, subset_tokens
 
+def normalize_embeddings(embeddings):
+    """
+    Normalize each embedding vector to have unit norm.
 
+    Args:
+        embeddings (np.ndarray): Embedding vectors.
+
+    Returns:
+        np.ndarray: Normalized embedding vectors.
+    """
+    norms = np.linalg.norm(embeddings, axis=-1, keepdims=True)
+    return embeddings / norms
+
+def create_token_embedding_dataframe(model, tokenizer, text, batch_size=4096, skip_beginning=0, skip_end=0, normalize=True):
+    """
+    Given a text, use the text_to_token_embeddings function to generate a DataFrame
+    with tokens and their corresponding embeddings, excluding special tokens.
+
+    Args:
+        model: HuggingFace model object.
+        tokenizer: HuggingFace tokenizer object.
+        text (str): Input text to be tokenized and processed.
+        batch_size (int, optional): Maximum number of tokens to process in one batch.
+        skip_beginning (int, optional): Number of tokens to skip from the beginning when returning embeddings.
+        skip_end (int, optional): Number of tokens to skip from the end when returning embeddings.
+        normalize (bool, optional): Whether to normalize embeddings to unit norm. Defaults to False.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing tokens and their embeddings.
+    """
+    # Generate token embeddings and tokens using text_to_token_embeddings
+    embeddings, tokens = text_to_token_embeddings(
+        model=model,
+        tokenizer=tokenizer,
+        text=text,
+        batch_size=batch_size,
+        skip_beginning=skip_beginning,
+        skip_end=skip_end
+    )
+
+    # Convert embeddings to a list of NumPy arrays for compatibility with Pandas
+    # embeddings = [embedding.cpu().numpy() for embedding in embeddings.squeeze(0)]
+    embeddings = [embedding.cpu().to(torch.float32).numpy() for embedding in embeddings.squeeze(0)]
+
+    if len(tokens) != len(embeddings):
+        raise ValueError("Mismatch between number of tokens and embeddings.")
+
+    # Filter out special tokens
+    special_tokens = tokenizer.all_special_tokens
+    tokens, embeddings = zip(*[
+        (token, embedding) for token, embedding in zip(tokens, embeddings)
+        if token not in special_tokens
+    ])
+
+    # Normalize embeddings if required
+    if normalize:
+        print("[INFO] Normalizing embeddings to unit norm.")
+        embeddings = normalize_embeddings(np.stack(embeddings))
+
+    # Create a DataFrame
+    df = pd.DataFrame({
+        "Token": tokens,
+        "Embedding": list(embeddings)
+    })
+
+    # Debugging: Print some details for verification
+    print("\n[DEBUG] DataFrame created (excluding special tokens):")
+    print(df.head())
+
+    return df
+
+def create_pooled_embeddings(df, pooling_method="mean"):
+    """
+    Create pooled embeddings for the tokens in the DataFrame.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing tokens and their embeddings.
+        pooling_method (str): Pooling method to use ("mean", "max", "min", "sum", "median").
+
+    Returns:
+        dict: A dictionary containing:
+            - "Token": List of tokens in the DataFrame.
+            - "FullText": The concatenated text of all tokens.
+            - "Embedding": The pooled embedding vector.
+    """
+    # Extract embeddings from the DataFrame
+    embeddings = np.stack(df["Embedding"].values)
+
+    print(f"[INFO] Number of embeddings to pool: {len(embeddings)}")
+
+    # Apply the specified pooling method
+    if pooling_method == "mean":
+        pooled_embedding = np.mean(embeddings, axis=0)
+        print("[INFO] Applied mean pooling.")
+    elif pooling_method == "max":
+        pooled_embedding = np.max(embeddings, axis=0)
+        print("[INFO] Applied max pooling.")
+    elif pooling_method == "min":
+        pooled_embedding = np.min(embeddings, axis=0)
+        print("[INFO] Applied min pooling.")
+    elif pooling_method == "sum":
+        pooled_embedding = np.sum(embeddings, axis=0)
+        print("[INFO] Applied sum pooling.")
+    elif pooling_method == "median":
+        pooled_embedding = np.median(embeddings, axis=0)
+        print("[INFO] Applied median pooling.")
+    else:
+        raise ValueError(f"Unknown pooling method: {pooling_method}")
+
+    
+    tokens = df["Token"].values.tolist()
+    # print(f"[INFO] Tokens list:")
+    # print(tokens)
+
+    print("\n[INFO] Pooled embedding (first 10 dimensions):")
+    print(pooled_embedding[:10])
+
+    return {
+        "Token": tokens,
+        "Embedding": pooled_embedding
+    }
+
+def calculate_embedding_distance_between_dfs(pooled_result1, pooled_result2, distance_metric="cosine"):
+    """
+    Calculate the distance between pooled embeddings from two DataFrames.
+
+    Args:
+        pooled_result1 (dict): Result from create_pooled_embeddings for the first DataFrame.
+        pooled_result2 (dict): Result from create_pooled_embeddings for the second DataFrame.
+        distance_metric (str): Distance metric to use ("cosine", "euclidean", "manhattan").
+
+    Returns:
+        dict: A dictionary containing:
+            - "Tokens1": Tokens from the first DataFrame.
+            - "Tokens2": Tokens from the second DataFrame.
+            - "Distance": Calculated distance between the embeddings.
+    """
+    embedding1 = pooled_result1["Embedding"]
+    embedding2 = pooled_result2["Embedding"]
+
+    if distance_metric == "cosine":
+        distance = cosine(embedding1, embedding2)
+        print("[INFO] Cosine distance calculated.")
+    elif distance_metric == "euclidean":
+        distance = euclidean(embedding1, embedding2)
+        print("[INFO] Euclidean distance calculated.")
+    elif distance_metric == "manhattan":
+        distance = cityblock(embedding1, embedding2)
+        print("[INFO] Manhattan distance calculated.")
+    else:
+        raise ValueError(f"Unknown distance metric: {distance_metric}")
+
+    print(f"\n[INFO] Tokens from first DataFrame:")
+    print(" ".join(pooled_result1["Token"]))
+    print(f"\n[INFO] Tokens from second DataFrame:")
+    print(" ".join(pooled_result2["Token"]))
+    print(f"\n[INFO] Distance ({distance_metric}): {distance}")
+
+    return {
+        "Tokens1": pooled_result1["Token"],
+        "Tokens2": pooled_result2["Token"],
+        "Distance": distance
+    }
+
+def calculate_embedding_similarity_between_dfs(pooled_result1, pooled_result2, similarity_metric="cosine"):
+    """
+    Calculate the similarity between pooled embeddings from two DataFrames.
+
+    Args:
+        pooled_result1 (dict): Result from create_pooled_embeddings for the first DataFrame.
+        pooled_result2 (dict): Result from create_pooled_embeddings for the second DataFrame.
+        similarity_metric (str): Similarity metric to use ("cosine", "dot_product", "pearson", "manhattan").
+
+    Returns:
+        dict: A dictionary containing:
+            - "Tokens1": Tokens from the first DataFrame.
+            - "Tokens2": Tokens from the second DataFrame.
+            - "Similarity": Calculated similarity between the embeddings.
+    """
+    embedding1 = pooled_result1["Embedding"]
+    embedding2 = pooled_result2["Embedding"]
+
+    if similarity_metric == "cosine":
+        similarity = 1 - cosine(embedding1, embedding2)
+        print("[INFO] Cosine similarity calculated.")
+    elif similarity_metric == "dot_product":
+        similarity = np.dot(embedding1, embedding2)
+        print("[INFO] Dot product similarity calculated.")
+    elif similarity_metric == "pearson":
+        similarity = np.corrcoef(embedding1, embedding2)[0, 1]
+        print("[INFO] Pearson correlation similarity calculated.")
+    elif similarity_metric == "manhattan":
+        distance = cityblock(embedding1, embedding2)
+        similarity = 1 / (1 + distance)  # Transform Manhattan distance into similarity
+        print("[INFO] Manhattan similarity calculated.")
+    else:
+        raise ValueError(f"Unknown similarity metric: {similarity_metric}")
+
+    print(f"\n[INFO] Tokens from first DataFrame:")
+    print(", ".join(pooled_result1["Token"]))
+    print(f"\n[INFO] Tokens from second DataFrame:")
+    print(", ".join(pooled_result2["Token"]))
+    print(f"\n[INFO] Similarity ({similarity_metric}): {similarity}")
+
+    return {
+        "Tokens1": pooled_result1["Token"],
+        "Tokens2": pooled_result2["Token"],
+        "Similarity": similarity
+    }
 
 def count_tokens(tokenizer, text):
     """
@@ -110,7 +322,6 @@ def get_span_annotations_from_text(text, chunks):
         current_index = end  # Update current index to avoid overlapping matches
 
     return span_annotations
-
 
 def char_to_token_spans(tokenizer, text, char_spans):
     """
