@@ -31,8 +31,8 @@ class ContextAwareChunker:
         normalize_embeddings=True,
         num_neighbors=3,
         current_chunk_size=1,
-        softmin_chunk_size=150,
-        max_chunk_size=600,
+        softmin_chunk_size=50,
+        max_chunk_size=1000,
         min_prev_next_ratio=2.5,
         hard_split_prev_next_ratio=5.0,
         debugger=EngineDebugger("CONTEXT_AWARE_CHUNKER")
@@ -410,30 +410,58 @@ class ContextAwareChunker:
         return df
 
 
+    def pool_embeddings(self, embeddings):
+        """
+        Pools the given embeddings using the class-defined pooling method.
+
+        Args:
+            embeddings (np.ndarray): A 2D array of embeddings to pool (shape: [num_tokens, embedding_dim]).
+
+        Returns:
+            np.ndarray: The pooled embedding (1D array).
+        """
+        if self.pooling_method == "mean":
+            return np.mean(embeddings, axis=0)
+        elif self.pooling_method == "max":
+            return np.max(embeddings, axis=0)
+        elif self.pooling_method == "min":
+            return np.min(embeddings, axis=0)
+        elif self.pooling_method == "sum":
+            return np.sum(embeddings, axis=0)
+        elif self.pooling_method == "median":
+            return np.median(embeddings, axis=0)
+        else:
+            raise ValueError(f"Unknown pooling method: {self.pooling_method}")
+
+
     def generate_pooled_embeddings(self, span_annotations, combined_table):
+        """
+        Generates pooled embeddings for spans of tokens.
+
+        Args:
+            span_annotations (List[Tuple[int, int]]): List of (start_token, end_token) indices for spans.
+            combined_table (pd.DataFrame): DataFrame containing token information and embeddings.
+
+        Returns:
+            List[Tuple[np.ndarray, List[str]]]: A list of tuples where each tuple contains:
+                - The pooled embedding (np.ndarray).
+                - The list of tokens in the span.
+        """
         pooled_results = []
 
         for start_token, end_token in span_annotations:
+            # Extract token data and embeddings for the span
             span_data = combined_table.iloc[start_token:end_token]
             span_embeddings = np.stack(span_data["Embedding"].values)
 
-            if self.pooling_method == "mean":
-                pooled_embedding = np.mean(span_embeddings, axis=0)
-            elif self.pooling_method == "max":
-                pooled_embedding = np.max(span_embeddings, axis=0)
-            elif self.pooling_method == "min":
-                pooled_embedding = np.min(span_embeddings, axis=0)
-            elif self.pooling_method == "sum":
-                pooled_embedding = np.sum(span_embeddings, axis=0)
-            elif self.pooling_method == "median":
-                pooled_embedding = np.median(span_embeddings, axis=0)
-            else:
-                raise ValueError(f"Unknown pooling method: {self.pooling_method}")
+            # Use the helper method to pool embeddings
+            pooled_embedding = self.pool_embeddings(span_embeddings)
 
             tokens = span_data["Token"].tolist()
             pooled_results.append((pooled_embedding, tokens))
 
         return pooled_results
+
 
 
     def compare_chunk_distances(self, combined_table, span_annotations):
@@ -583,15 +611,16 @@ class ContextAwareChunker:
 
         return results
 
-    def create_chunks(self, text):
+    def  create_chunks(self, text):
         """
         Create chunks from text based on softmin_chunk_size, max_chunk_size, and prev/next ratios.
+        Ensures chunks start with the correct sentences after splits.
 
         Args:
             text (str): The input text to chunk.
 
         Returns:
-            List[Tuple[str, float]]: Chunks of text with their splitting prev/next ratios.
+            List[Tuple[str, str]]: Chunks of text with their starting point split ratios.
         """
         # Step 1: Compare sentence distances
         distance_results = self.compare_sentence_distances(text)
@@ -600,6 +629,7 @@ class ContextAwareChunker:
         current_chunk = []
         current_token_count = 0
         current_max_ratio = -float("inf")
+        starting_point_ratio = "N/A"  # Default for the first chunk
 
         for i, result in enumerate(distance_results):
             sentence = result["current_sentence"]
@@ -615,11 +645,16 @@ class ContextAwareChunker:
 
             # Check for hard split
             if prev_next_ratio is not None and prev_next_ratio >= self.hard_split_prev_next_ratio:
-                chunks.append((" ".join(current_chunk), prev_next_ratio))
-                current_chunk = []
-                current_token_count = 0
+                # Finalize the current chunk
+                chunks.append((" ".join(current_chunk), starting_point_ratio))
+
+                # Start a new chunk with the current sentence
+                current_chunk = [sentence]
+                current_token_count = token_count
                 current_max_ratio = -float("inf")
+                starting_point_ratio = f"{prev_next_ratio:.4f}"  # Set the starting point for the new chunk
                 continue
+
 
             # Check for softmin_chunk_size
             if current_token_count >= self.softmin_chunk_size:
@@ -628,19 +663,22 @@ class ContextAwareChunker:
                     current_token_count >= self.max_chunk_size or
                     (prev_next_ratio is not None and prev_next_ratio > self.min_prev_next_ratio)
                 ):
-                    chunks.append((" ".join(current_chunk), current_max_ratio))
-                    current_chunk = []
-                    current_token_count = 0
+                    # Finalize the current chunk
+                    chunks.append((" ".join(current_chunk), starting_point_ratio))
+
+                    # Start a new chunk with the next sentence
+                    current_chunk = [sentence]
+                    current_token_count = token_count
                     current_max_ratio = -float("inf")
+                    starting_point_ratio = f"{prev_next_ratio:.4f}"  # Set the starting point for the new chunk
 
         # Add any remaining text as the last chunk
         if current_chunk:
-            chunks.append((" ".join(current_chunk), current_max_ratio))
+            chunks.append((" ".join(current_chunk), starting_point_ratio))
 
-        # Print the resulting chunks and their split ratios
+        # Print the resulting chunks and their starting point split ratios
         print("\nChunks:")
         for chunk, ratio in chunks:
-            print(f"Chunk: {chunk[:100]}...\nSplit Ratio: {ratio}\n")
+            print(f"Chunk: {chunk[:100]}...\nStarting Point Split Ratio: {ratio}\n")
 
         return chunks
-    
