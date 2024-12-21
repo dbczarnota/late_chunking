@@ -30,16 +30,20 @@ model_name = "jinaai/jina-embeddings-v3"
 tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 model = AutoModel.from_pretrained(model_name, trust_remote_code=True)
 
+# Initialize ContextAwareChunker with appropriate parameters
 chunker = ContextAwareChunker(
     tokenizer=tokenizer,
     model=model,
-
+ 
 )
 
-# Compare sentence distances
-print("\n[bold green]Comparing sentence distances:[/bold green]")
-distance_results = chunker.compare_sentence_distances(text)
+# Generate chunks
+chunks = chunker.create_chunks(text)
 
+# Print the chunks
+print("\nGenerated Chunks:")
+for i, (chunk, ratio) in enumerate(chunks, start=1):
+    print(f"Chunk {i}: {chunk[:100]}...\nSplit Ratio: {ratio}\n")
 
 
 # Cleanup

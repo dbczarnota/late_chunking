@@ -7,7 +7,7 @@ sys.path.append(str(parent_dir))  # Add the parent directory to the Python path
 
 from ragsyslib.files.engine_debugger import EngineDebugger
 from files.sentence_chunkers import split_to_sentences
-from files.embed import text_to_token_embeddings, normalize_embeddings, count_tokens
+from files.embed import text_to_token_embeddings, count_tokens, normalize_embeddings
 import pandas as pd
 import numpy as np
 import re
@@ -23,14 +23,18 @@ class ContextAwareChunker:
         model,
         pooling_method="mean",
         similarity_metric="cosine",
-        max_sentence_length: int = 500,
-        min_sentence_length: int = 20,
-        sentence_split_regex: str = r'(?<=[.?!])\s+',
-        context_group_token_limit: int = 200,
-        context_group_overlap_size: int = 50,
-        normalize_embeddings=False,  # New parameter for normalization
-        num_neighbors: int = 3,  # Number of neighbors to pool
-        current_chunk_size: int = 1,  # Size of the current chunk
+        max_sentence_length=500,
+        min_sentence_length=15,
+        sentence_split_regex=r'(?<=[.?!|])(?=\s+|\Z)|\n{1,2}(?=\S)',
+        context_group_token_limit=8000,
+        context_group_overlap_size=150,
+        normalize_embeddings=True,
+        num_neighbors=3,
+        current_chunk_size=1,
+        softmin_chunk_size=150,
+        max_chunk_size=600,
+        min_prev_next_ratio=2.5,
+        hard_split_prev_next_ratio=5.0,
         debugger=EngineDebugger("CONTEXT_AWARE_CHUNKER")
     ):
         """
@@ -52,14 +56,18 @@ class ContextAwareChunker:
         self.model = model
         self.pooling_method = pooling_method
         self.similarity_metric = similarity_metric
-        self.sentence_split_regex = sentence_split_regex
         self.max_sentence_length = max_sentence_length
         self.min_sentence_length = min_sentence_length
+        self.sentence_split_regex = sentence_split_regex
         self.context_group_token_limit = context_group_token_limit
         self.context_group_overlap_size = context_group_overlap_size
         self.normalize_embeddings = normalize_embeddings
         self.num_neighbors = num_neighbors
         self.current_chunk_size = current_chunk_size
+        self.softmin_chunk_size = softmin_chunk_size
+        self.max_chunk_size = max_chunk_size
+        self.min_prev_next_ratio = min_prev_next_ratio
+        self.hard_split_prev_next_ratio = hard_split_prev_next_ratio
         self.debugger = debugger
 
         if self.debugger:
@@ -99,8 +107,44 @@ class ContextAwareChunker:
 
 
         return text   
-    
-    
+
+    def normalize_embeddings_fc(self, embeddings):
+        """
+        Normalize embeddings to have unit norm.
+
+        Args:
+            embeddings (Union[torch.Tensor, np.ndarray]): The embeddings to normalize.
+
+        Returns:
+            torch.Tensor or np.ndarray: Normalized embeddings.
+        """
+        if isinstance(embeddings, torch.Tensor):
+            # Move tensor to CPU if necessary
+            if embeddings.is_cuda:
+                embeddings = embeddings.cpu()
+
+            # Squeeze batch dimension if present
+            if embeddings.dim() == 3:
+                embeddings = embeddings.squeeze(0)
+
+            # Normalize tensor embeddings directly
+            norms = torch.norm(embeddings, p=2, dim=-1, keepdim=True).clamp(min=1e-8)
+            return embeddings / norms
+
+        elif isinstance(embeddings, np.ndarray):
+            # Squeeze batch dimension if present
+            if embeddings.ndim == 3:
+                embeddings = embeddings.squeeze(0)
+
+            # Normalize numpy embeddings
+            norms = np.linalg.norm(embeddings, axis=-1, keepdims=True)
+            norms = np.maximum(norms, 1e-8)  # Avoid division by zero
+            return embeddings / norms
+
+        else:
+            raise TypeError(f"Embeddings must be either a numpy array or a torch tensor. Got type: {type(embeddings)}")
+
+   
     def split_to_long_sentences(self, text):
         """
         Splits the text into sentences using split_to_sentences, joins consecutive short sentences,
@@ -309,9 +353,9 @@ class ContextAwareChunker:
                 skip_end=skip_end,
             )
 
-            # Normalize embeddings if specified, using the imported function
+            # Normalize embeddings if specified
             if self.normalize_embeddings:
-                group_embeddings = normalize_embeddings(group_embeddings)
+                group_embeddings = self.normalize_embeddings_fc(group_embeddings[0])
 
             # Adjust tokens based on skipping
             adjusted_tokens = tokens[skip_beginning: len(tokens) - skip_end if skip_end > 0 else None]
@@ -321,6 +365,7 @@ class ContextAwareChunker:
             previous_adjusted_tokens = adjusted_tokens  # Update for the next iteration
 
         return results
+
 
 
     def combine_group_tables(self, token_embeddings_with_tokens):
@@ -537,3 +582,65 @@ class ContextAwareChunker:
                 print("  Prev/Next Distance Ratio: N/A")
 
         return results
+
+    def create_chunks(self, text):
+        """
+        Create chunks from text based on softmin_chunk_size, max_chunk_size, and prev/next ratios.
+
+        Args:
+            text (str): The input text to chunk.
+
+        Returns:
+            List[Tuple[str, float]]: Chunks of text with their splitting prev/next ratios.
+        """
+        # Step 1: Compare sentence distances
+        distance_results = self.compare_sentence_distances(text)
+
+        chunks = []
+        current_chunk = []
+        current_token_count = 0
+        current_max_ratio = -float("inf")
+
+        for i, result in enumerate(distance_results):
+            sentence = result["current_sentence"]
+            prev_next_ratio = result["prev_next_ratio"]
+            token_count = count_tokens(self.tokenizer, sentence)
+
+            # Add sentence to the current chunk
+            current_chunk.append(sentence)
+            current_token_count += token_count
+
+            if prev_next_ratio is not None and prev_next_ratio > current_max_ratio:
+                current_max_ratio = prev_next_ratio
+
+            # Check for hard split
+            if prev_next_ratio is not None and prev_next_ratio >= self.hard_split_prev_next_ratio:
+                chunks.append((" ".join(current_chunk), prev_next_ratio))
+                current_chunk = []
+                current_token_count = 0
+                current_max_ratio = -float("inf")
+                continue
+
+            # Check for softmin_chunk_size
+            if current_token_count >= self.softmin_chunk_size:
+                # Stop adding sentences once max_chunk_size is reached or a split condition is found
+                if (
+                    current_token_count >= self.max_chunk_size or
+                    (prev_next_ratio is not None and prev_next_ratio > self.min_prev_next_ratio)
+                ):
+                    chunks.append((" ".join(current_chunk), current_max_ratio))
+                    current_chunk = []
+                    current_token_count = 0
+                    current_max_ratio = -float("inf")
+
+        # Add any remaining text as the last chunk
+        if current_chunk:
+            chunks.append((" ".join(current_chunk), current_max_ratio))
+
+        # Print the resulting chunks and their split ratios
+        print("\nChunks:")
+        for chunk, ratio in chunks:
+            print(f"Chunk: {chunk[:100]}...\nSplit Ratio: {ratio}\n")
+
+        return chunks
+    
