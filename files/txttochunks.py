@@ -3,6 +3,8 @@ from uuid import uuid4
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 from pydantic import BaseModel, Field
+from rich import print
+import re
 
 # Define the Chunk class using Pydantic
 class Chunk(BaseModel):
@@ -13,10 +15,13 @@ class Chunk(BaseModel):
 
 # Define the TextToPdfChunks class
 class TextToPdfChunks:
-    save_format: str = "txt"  # Class-level switch for save format, defaults to 'txt'
-
-    def __init__(self):
-        pass
+    def __init__(
+        self,
+        save_format: str = "txt",  # Class-level switch for save format, defaults to 'txt'
+        clean_text: bool = True  # Option to enable or disable text cleaning, defaults to True
+    ):
+        self.save_format = save_format
+        self.clean_text = clean_text
 
     def _generate_metadata(self, file_directory: str, filename: str, last_modified: str, element_number: int) -> Dict[str, Any]:
         return {
@@ -32,14 +37,130 @@ class TextToPdfChunks:
             'element_number': element_number
         }
 
+    def _clean_text(self, text: str) -> str:
+        # Remove all strange characters except '\n' and '\n\n'
+        text = re.sub(r"[^\x20-\x7E\n]", "", text)  # Remove non-ASCII characters
+        # Flatten more than two '\n' into '\n\n'
+        text = re.sub(r"\n{3,}", "\n\n", text)
+        return text
+
+    def _identify_list_item(self, chunks: List[str]) -> List[str]:
+        bullet_points = ["-", "*", "+"]
+        roman_regex = re.compile(r"^(i|ii|iii|iv|v|vi|vii|viii|ix|x)$", re.IGNORECASE)
+        initial_classification = []
+
+        # First pass: Identify potential list items
+        for i, chunk in enumerate(chunks):
+            stripped = chunk.strip()
+            if (
+                any(stripped.startswith(bp) for bp in bullet_points)
+                or re.match(r"^\d+[\.\)]", stripped)
+                or re.match(r"^[a-zA-Z][\.\)]", stripped)
+                or re.match(r"^[\(\[{]?\d+[\)\]}]?", stripped)
+                or roman_regex.match(stripped)
+            ):
+                initial_classification.append("ListItem")
+                print(f"Potential ListItem identified: '{chunk}'")
+            else:
+                initial_classification.append("NarrativeText")
+                print(f"Not ListItem (initial): '{chunk}'")
+
+        # Helper to extract numeric or hierarchical components
+        def parse_numeric_prefix(text):
+            match = re.match(r"^(\d+)([\.a-z]*)", text.strip())
+            if match:
+                return match.groups()
+            return None, None
+
+        # Helper to check if one number follows another hierarchically
+        def is_valid_hierarchy(current, next_item):
+            current_num, current_suffix = current
+            next_num, next_suffix = next_item
+            if not current_num or not next_num:
+                return False
+
+            if int(next_num) == int(current_num) + 1 and not next_suffix:
+                return True
+            if current_suffix and next_suffix:
+                if current_suffix.isdigit() and next_suffix.isdigit():
+                    return int(next_suffix) == int(current_suffix) + 1
+                if current_suffix.isalpha() and next_suffix.isalpha():
+                    return ord(next_suffix) == ord(current_suffix) + 1
+            return False
+
+        # Second pass: Refine classification based on sequence
+        refined_classification = []
+        for i, classification in enumerate(initial_classification):
+            if classification == "ListItem":
+                is_preceded = i > 0 and initial_classification[i - 1] == "ListItem"
+                is_followed = i < len(chunks) - 1 and initial_classification[i + 1] == "ListItem"
+
+                current_num, current_suffix = parse_numeric_prefix(chunks[i])
+                if current_num:
+                    if is_followed:
+                        next_num, next_suffix = parse_numeric_prefix(chunks[i + 1])
+                        is_followed = is_valid_hierarchy((current_num, current_suffix), (next_num, next_suffix))
+                    if is_preceded:
+                        prev_num, prev_suffix = parse_numeric_prefix(chunks[i - 1])
+                        is_preceded = is_valid_hierarchy((prev_num, prev_suffix), (current_num, current_suffix))
+
+                if is_preceded or is_followed:
+                    refined_classification.append("ListItem")
+                    print(f"Confirmed as ListItem: '{chunks[i]}' - Preceded: {is_preceded}, Followed: {is_followed}")
+                else:
+                    refined_classification.append("NarrativeText")
+                    print(f"Not ListItem (isolated in refinement): '{chunks[i]}'")
+            else:
+                refined_classification.append("NarrativeText")
+
+        return refined_classification
+
+    def _identify_headings(self, chunks: List[str], types: List[str]) -> List[str]:
+        updated_types = types[:]
+        for i, (chunk, chunk_type) in enumerate(zip(chunks, types)):
+            if chunk_type != "NarrativeText":
+                continue
+
+            score = 0
+            stripped = chunk.strip()
+
+            # Length heuristic
+            if 5 <= len(stripped) <= 50:
+                score += 3
+
+            # Capitalization heuristic
+            if stripped.istitle() or stripped.isupper():
+                score += 2
+
+            # Surrounding blank line heuristic
+            if (i == 0 or types[i - 1] != "NarrativeText") and (i == len(chunks) - 1 or types[i + 1] != "NarrativeText"):
+                score += 1
+
+            # Terminal punctuation heuristic
+            if not stripped.endswith(('.', '!', '?')):
+                score += 1
+
+            # Followed by longer text heuristic
+            if i < len(chunks) - 1 and len(chunks[i + 1].strip()) > len(stripped):
+                score += 3
+
+            if score >= 6:
+                updated_types[i] = "Title"
+
+        return updated_types
+
     def _text_file_to_chunks(self, text: str, file_directory: str, filename: str, last_modified: str) -> List[Chunk]:
+        if self.clean_text:
+            text = self._clean_text(text)  # Clean the text if the option is enabled
         raw_chunks = [chunk.strip() for chunk in text.split('\n') if chunk.strip()]
-        
+        types = self._identify_list_item(raw_chunks)
+        types = self._identify_headings(raw_chunks, types)
+
         chunks = []
         for i, chunk_text in enumerate(raw_chunks):
             metadata = self._generate_metadata(file_directory, filename, last_modified, i)
             chunk = Chunk(
-                type='NarrativeText',
+                type=types[i],
                 text=chunk_text,
                 metadata=metadata
             )
@@ -85,29 +206,22 @@ class TextToPdfChunks:
     def _save_chunks_to_txt(self, chunks: List[Chunk], file_path: str):
         with open(file_path, 'w', encoding='utf-8') as f:
             for chunk in chunks:
-                f.write(f"Chunk ID: {chunk.element_id}\n")
-                f.write(f"Type: {chunk.type}\n")
-                f.write(f"Text: {chunk.text}\n")
-                f.write(f"Metadata: {chunk.metadata}\n")
-                f.write("\n")
+                f.write(f"{chunk.model_dump()}\n")
 
     def _save_chunks_to_json(self, chunks: List[Chunk], file_path: str):
         import json
         with open(file_path, 'w', encoding='utf-8') as f:
-            json.dump([chunk.dict() for chunk in chunks], f, indent=4)
+            json.dump([chunk.model_dump() for chunk in chunks], f, indent=4)
 
 def main():
-    file_path = "./multimodal_RAG/data/concatenated_text.txt"
-    save_path = "./multimodal_RAG/data/chunks.txt"
-    text_to_pdf_chunks = TextToPdfChunks()
-
-    # Change the class-level save format if needed
-    TextToPdfChunks.save_format = "txt"  # Change to "json" if you want JSON output
+    file_path = "./data/concatenated_text.txt"
+    save_path = "./data/chunks.txt"
+    text_to_pdf_chunks = TextToPdfChunks(save_format="txt", clean_text=True)
 
     chunks = text_to_pdf_chunks.process_text(file_path=file_path, save_to_file=save_path)
 
-    for chunk in chunks:
-        print(chunk.model_dump_json(indent=4))
+    # for chunk in chunks:
+    #     print(chunk.model_dump_json(indent=4))
 
 if __name__ == "__main__":
     main()
