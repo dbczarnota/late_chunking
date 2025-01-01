@@ -668,13 +668,17 @@ class PdfHybridChunker:
                             next_score = 0
 
                         if prev_score >= next_score:
-                            refined_split_points.pop()
-                            print(f"Merging chunk starting at {start} with previous chunk at {prev_split_idx} due to higher score ({prev_score:.2f} >= {next_score:.2f}).")
+                            # Merge with previous chunk
+                            refined_split_points.pop()  # remove *this* chunk's boundary
+                            print(f"Merging chunk starting at {start} with previous chunk ...")
                         else:
-                            print(f"Merging chunk starting at {start} with next chunk due to higher score ({next_score:.2f} > {prev_score:.2f}).")
-                            # Adjust the start and token_count for continued processing
+                            # Merge with next chunk
+                            next_boundary = refined_split_points[-1]  # or however you track the just-appended boundary
+                            refined_split_points.pop()  # remove *next* chunk's boundary
+                            print(f"Merging chunk starting at {start} with next chunk ...")
                             chunk = chunk + next_chunk
                             token_count = sum(e["metadata"].get("token_size", 0) for e in chunk)
+
 
                 # If the chunk's token count exceeds max_tokens, split it iteratively
                 elif token_count > self.max_tokens:
@@ -729,7 +733,7 @@ class PdfHybridChunker:
         refined_split_points = initial_split_points.copy()
 
         # Safety net to avoid infinite loops
-        max_iterations = 50
+        max_iterations = 100
         iteration_count = 0
 
         while True:
@@ -792,6 +796,12 @@ class PdfHybridChunker:
         """
         Refines split points within a sliding window of chunks.
 
+        - Preserves the original idea (shifting/merging/splitting) to maximize
+        the average chunk score.
+        - Adds logic to:
+            1) Skip merges that would exceed self.max_tokens.
+            2) Forcibly split oversized or zero-scored chunks.
+
         Args:
             dicts_list (list): List of dictionaries with scores and metadata.
             split_points (list): List of split points in the current window.
@@ -801,57 +811,146 @@ class PdfHybridChunker:
         Returns:
             list: Refined split points for the window.
         """
-        # Ensure there are enough split points for refinement
+
+        # Quick helper to get token count of a chunk
+        def get_token_count(start_idx, end_idx):
+            return sum(e["metadata"].get("token_size", 0) for e in dicts_list[start_idx:end_idx])
+
         if len(split_points) < 2:
             return split_points
 
         best_split_points = split_points.copy()
-        best_avg_score = self.calculate_average_chunk_score(dicts_list, split_points)
+        best_avg_score = self.calculate_average_chunk_score(dicts_list, best_split_points)
 
-        # Try shifting split points within the window
+        ##########################################################################
+        # 1) SHIFT SPLIT POINTS (as in your original code)
+        ##########################################################################
         for shift in range(-1, 2):
             temp_split_points = best_split_points.copy()
-            for idx in range(1, len(temp_split_points) - 1):  # Avoid first and last points
+
+            # Shift each "middle" split by -1, 0, or +1
+            for idx in range(1, len(temp_split_points) - 1):
                 new_split = temp_split_points[idx] + shift
-                # Ensure the new split point is within window bounds
+                # Keep the new split within the current window bounds
                 temp_split_points[idx] = max(window_start, min(window_end, new_split))
 
+            # Remove duplicates and sort
             temp_split_points = sorted(set(temp_split_points))
             temp_avg_score = self.calculate_average_chunk_score(dicts_list, temp_split_points)
 
+            # If the shift yields a better average score, adopt it
             if temp_avg_score > best_avg_score:
                 best_avg_score = temp_avg_score
                 best_split_points = temp_split_points
 
-        # Try merging chunks in the window
-        for idx in range(1, len(best_split_points) - 1):  # Avoid first and last points
-            if idx < len(best_split_points):  # Ensure idx is within bounds
+        ##########################################################################
+        # 2) MERGE CHUNKS (with a max_tokens check)
+        ##########################################################################
+        # We try removing one split at a time, but only keep it if it improves average AND
+        # does not produce a chunk bigger than max_tokens.
+        merged = True
+        while merged:
+            merged = False
+            # We'll iterate from left to right in the refined splits
+            i = 1
+            while i < len(best_split_points) - 1:
+                # Attempt to merge chunk i with its neighbor, i.e. remove boundary at i
                 temp_split_points = best_split_points.copy()
-                temp_split_points.pop(idx)
+                pop_value = temp_split_points.pop(i)
 
+                # Calculate new average
                 temp_avg_score = self.calculate_average_chunk_score(dicts_list, temp_split_points)
 
-                if temp_avg_score > best_avg_score:
-                    best_avg_score = temp_avg_score
-                    best_split_points = temp_split_points
+                # Identify the newly formed chunk's start/end to check token size
+                merge_start = best_split_points[i - 1]
+                merge_end = (
+                    best_split_points[i + 1] 
+                    if (i + 1) < len(best_split_points) 
+                    else window_end
+                )
+                new_tokens = get_token_count(merge_start, merge_end)
 
-        # Try splitting chunks in the window
-        for idx in range(1, len(best_split_points) - 1):  # Avoid first and last points
-            if idx + 1 < len(best_split_points):  # Ensure idx + 1 is within bounds
+                # We only keep the merge if:
+                #   1) average score is better,
+                #   2) we don't exceed max_tokens (if you require that),
+                #   3) the merged chunk doesn't remain zero if it can be split.
+                #      (You could be stricter here: if it’s zero AND big, skip.)
+                if (
+                    temp_avg_score > best_avg_score 
+                    and new_tokens <= self.max_tokens
+                ):
+                    best_split_points = temp_split_points
+                    best_avg_score = temp_avg_score
+                    merged = True
+                    # do NOT advance i, because we want to re-check new boundaries
+                else:
+                    # revert the pop
+                    i += 1
+
+        ##########################################################################
+        # 3) SPLIT CHUNKS (same as your original, but we can also block huge splits)
+        ##########################################################################
+        # We try inserting a midpoint between adjacent split_points if it improves average.
+        for idx in range(1, len(best_split_points) - 1):
+            if idx + 1 < len(best_split_points):
                 temp_split_points = best_split_points.copy()
                 midpoint = (temp_split_points[idx] + temp_split_points[idx + 1]) // 2
 
-                # Avoid duplicate split points
                 if midpoint not in temp_split_points:
                     temp_split_points.insert(idx + 1, midpoint)
-
+                    temp_split_points = sorted(set(temp_split_points))
                     temp_avg_score = self.calculate_average_chunk_score(dicts_list, temp_split_points)
 
+                    # If the midpoint split yields a better average, keep it
                     if temp_avg_score > best_avg_score:
                         best_avg_score = temp_avg_score
                         best_split_points = temp_split_points
 
-        return best_split_points
+        ##########################################################################
+        # 4) ENFORCE HARD CONSTRAINTS: break up any chunk that is too big or zero-scored
+        ##########################################################################
+        final_points = []
+        for i, sp in enumerate(best_split_points):
+            # Always keep the current boundary
+            final_points.append(sp)
+
+            # Look ahead to next chunk boundary
+            next_sp = (
+                best_split_points[i + 1] 
+                if (i + 1) < len(best_split_points) 
+                else window_end
+            )
+
+            # Evaluate the chunk from sp -> next_sp
+            chunk_tokens = get_token_count(sp, next_sp)
+            chunk_score = self.calculate_chunk_score(dicts_list[sp], dicts_list[sp:next_sp])
+
+            # If chunk is beyond max_tokens or zero-scored with enough tokens to split,
+            # forcibly break it up. We'll do a simple "split in half" approach here.
+            # You can get more sophisticated by searching for a best boundary.
+            while (
+                (chunk_tokens > self.max_tokens) or
+                (chunk_score == 0 and chunk_tokens > self.min_tokens)
+            ):
+                mid = (sp + next_sp) // 2
+                if mid <= sp or mid >= next_sp:
+                    # If we can't actually split further, break to avoid infinite loop
+                    break
+
+                # Insert a forced split in the final list
+                forced_split = mid
+                final_points[-1] = sp  # (re-assert the chunk start)
+                final_points.append(forced_split)
+
+                # Recompute token count / score for the new sub-chunk from mid->next_sp
+                sp = forced_split
+                chunk_tokens = get_token_count(sp, next_sp)
+                chunk_score = self.calculate_chunk_score(dicts_list[sp], dicts_list[sp:next_sp])
+
+        # Sort and remove duplicates once more
+        final_points = sorted(set(final_points))
+
+        return final_points
 
     def calculate_average_chunk_score(self, dicts_list, split_points):
         """
@@ -919,17 +1018,17 @@ def main():
     
     
     # Example usage
-    chunker = PdfHybridChunker()
-    file_path = './data/chunks_output_with_metadata.txt'
+    chunker = PdfHybridChunker(max_tokens = 800, expected_tokens = 400)
+    file_path = './data/chunks_output_with_metadata_CodeReview.txt'
     dict_list = chunker.parse_txt_to_dicts(file_path)
     # print(dict_list[:10])
     # print('#'*100)
     new_dicts = chunker.add_token_size_to_dicts(dict_list)
     # print(new_dicts[:10])
     # print('#'*100)
-    file_path = './data/chunks_output_with_metadata2_with_scores.txt'
-    phrases_list = ['The dominant sequence transduction models are based on', '‡Work performed while at Google Research. 31st Conference on Neural Information Processing Systems (NIPS 2017),', '5 Training']
-    scored_dicts = chunker.calculate_chunk_split_scores(new_dicts, file_path, phrases_list=phrases_list)
+    save_path = './data/chunks_output_with_metadata2_with_scores.txt'
+    # phrases_list = ['The dominant sequence transduction models are based on', '‡Work performed while at Google Research. 31st Conference on Neural Information Processing Systems (NIPS 2017),', '5 Training']
+    scored_dicts = chunker.calculate_chunk_split_scores(new_dicts, save_path)
     # print(scored_dicts[:15])
     # print('#'*100)
 
