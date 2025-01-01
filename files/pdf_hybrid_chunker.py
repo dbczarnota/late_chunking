@@ -258,6 +258,7 @@ class PdfHybridChunker:
         # Apply individual conditions.
         dicts_list = self.apply_title_condition(dicts_list)
         dicts_list = self.apply_token_condition(dicts_list)
+        dicts_list = self.apply_first_listitem_condition(dicts_list)
 
         # Only apply phrases_condition if phrases_list is provided.
         if phrases_list:
@@ -339,6 +340,33 @@ class PdfHybridChunker:
                 d["score"]["token_condition"] = 0
 
         print("Finished applying token condition.")
+        return dicts_list
+    
+    def apply_first_listitem_condition(self, dicts_list):
+        """
+        Assigns 5 points to the first list item ("ListItem") in each detected list and 0 points to all other elements.
+
+        Args:
+            dicts_list (list): List of dictionaries representing elements.
+
+        Returns:
+            list: Updated list of dictionaries with `first_listitem_condition` scores added.
+        """
+        print("Applying first listitem condition...")
+        in_list = False
+        for i, d in enumerate(dicts_list):
+            if d.get("type") == "ListItem":
+                if not in_list:  # First list item in the current list
+                    d["score"]["first_listitem_condition"] = 5
+                    print(f"Assigned 5 points to first ListItem at index {i}.")
+                    in_list = True
+                else:  # Subsequent list items in the same list
+                    d["score"]["first_listitem_condition"] = 0
+            else:
+                d["score"]["first_listitem_condition"] = 0  # Ensure 0 points for non-list items
+                in_list = False  # Reset when not in a list
+
+        print("Finished applying first listitem condition.")
         return dicts_list
 
     def apply_phrases_condition(self, dicts_list, phrases_list, max_below=3, max_above=2):
