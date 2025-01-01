@@ -1,0 +1,3929 @@
+[
+    {
+        "type": "NarrativeText",
+        "element_id": "a92bb6002ad84b188e0108c6e7125bce",
+        "text": "v",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 0
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "735957d9ff6b442dbdfd8407ebd6adba",
+        "text": "arXiv",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 1
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "3ee7a76bf2d24a7aa7825f9264beae6e",
+        "text": "i",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 2
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "eba2482d582c43e38e1843f6772f9230",
+        "text": "X",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 3
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "51f5f6c1166140bfb730e80c8a0404ce",
+        "text": "r",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 4
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "553c7d2a7cdb46b09c29e55af5891ac0",
+        "text": "a",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 5
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "3d9e2554ff6b402d84f03a3ec8bdb1cb",
+        "text": "Provided proper attribution is provided, Google hereby grants permission to reproduce the tables and figures in this paper solely for use in journalistic or scholarly works.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 6
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "6c8d72f5f0194fdb95e0509f4fa588a3",
+        "text": "Attention Is All You Need",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 7
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "e875691bd2794474bac0a82d03b5378d",
+        "text": "Ashish Vaswani\u2217",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 8
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "b6061085b8d24b05ba8db956ebd80d84",
+        "text": "Google Brain",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 9
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "232d464623734ec2a7f00f6df9ebe80f",
+        "text": "avaswani@google.com",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 10
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "0c7f60ffa4634094b501b73037efb5ee",
+        "text": "Noam Shazeer\u2217 Google Brain noam@google.com",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 11
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "13b73d8bb62646b69241b161d11495cb",
+        "text": "Niki Parmar\u2217 Google Research nikip@google.com",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 12
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "b777cc300b494a77a7045d4780aeac26",
+        "text": "Jakob Uszkoreit\u2217",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 13
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "6dd5e34df9bb42058966ae68fd65191e",
+        "text": "Google Research usz@google.com",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 14
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "bbc3e8b75a1242349471a7791b5c8182",
+        "text": "Llion Jones\u2217",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 15
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "84d19b4df99b4f57b768d225a9e83e46",
+        "text": "Google Research llion@google.com",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 16
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "3313b91b64b24b51b315548da3edf85c",
+        "text": "Aidan N. Gomez\u2217 \u2020 University of Toronto aidan@cs.toronto.edu",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 17
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "29db710749f647478bcf9c4d2e063176",
+        "text": "\u0141ukasz Kaiser\u2217 Google Brain lukaszkaiser@google.com",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 18
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "09f5a572e6bb4105a1436194eea80e29",
+        "text": "Illia Polosukhin\u2217 \u2021",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 19
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "01049463bf144168a7d71b3bfddf91a6",
+        "text": "illia.polosukhin@gmail.com",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 20
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "5895f551c119460f81acd6e49c8b6fd0",
+        "text": "Abstract",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 21
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "76b9a6487f454c7397a4a549b26fc9d3",
+        "text": "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train. Our model achieves 28.4 BLEU on the WMT 2014 English- to-German translation task, improving over the existing best results, including ensembles, by over 2 BLEU. On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature. We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 22
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "31b17c759dab481ba4402285fa794330",
+        "text": "\u2217Equal contribution. Listing order is random. Jakob proposed replacing RNNs with self-attention and started the effort to evaluate this idea. Ashish, with Illia, designed and implemented the first Transformer models and has been crucially involved in every aspect of this work. Noam proposed scaled dot-product attention, multi-head attention and the parameter-free position representation and became the other person involved in nearly every detail. Niki designed, implemented, tuned and evaluated countless model variants in our original codebase and tensor2tensor. Llion also experimented with novel model variants, was responsible for our initial codebase, and efficient inference and visualizations. Lukasz and Aidan spent countless long days designing various parts of and implementing tensor2tensor, replacing our earlier codebase, greatly improving results and massively accelerating our research.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 23
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "bfcad08e2cd64969be1c899f4925f450",
+        "text": "\u2020Work performed while at Google Brain.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 24
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "44ec8ddea9024deeaea5d94bc8940512",
+        "text": "\u2021Work performed while at Google Research.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 25
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "0412fa126e454bbe8e196f00dd7219ff",
+        "text": "31st Conference on Neural Information Processing Systems (NIPS 2017), Long Beach, CA, USA.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 26
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "29cbb0c4b52f4f7d8999bcc2a710632d",
+        "text": "1 Introduction",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 27
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "1fb14c1e56834e6ca98f48cb370c985c",
+        "text": "Recurrent neural networks, long short-term memory [13] and gated recurrent [7] neural networks in particular, have been firmly established as state of the art approaches in sequence modeling and transduction problems such as language modeling and machine translation [35, 2, 5]. Numerous efforts have since continued to push the boundaries of recurrent language models and encoder-decoder architectures [38, 24, 15].",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 28
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "7119d723c7d741dfbbc9f2f60ab1f86f",
+        "text": "Recurrent models typically factor computation along the symbol positions of the input and output sequences. Aligning the positions to steps in computation time, they generate a sequence of hidden states ht, as a function of the previous hidden state ht\u22121 and the input for position t. This inherently sequential nature precludes parallelization within training examples, which becomes critical at longer sequence lengths, as memory constraints limit batching across examples. Recent work has achieved significant improvements in computational efficiency through factorization tricks [21] and conditional computation [32], while also improving model performance in case of the latter. The fundamental constraint of sequential computation, however, remains.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 29
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "54684c690e1943058202b45f8d0b2646",
+        "text": "Attention mechanisms have become an integral part of compelling sequence modeling and transduc- tion models in various tasks, allowing modeling of dependencies without regard to their distance in the input or output sequences [2, 19]. In all but a few cases [27], however, such attention mechanisms are used in conjunction with a recurrent network.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 30
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "c6b8cc879647481bb4d46fecb09f62eb",
+        "text": "In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output. The Transformer allows for significantly more parallelization and can reach a new state of the art in translation quality after being trained for as little as twelve hours on eight P100 GPUs.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 31
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "27ff57782e2c49a7a6dce6c2fe036217",
+        "text": "2 Background",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 32
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "391d7e4202c3450f9bccf15e91bb39af",
+        "text": "The goal of reducing sequential computation also forms the foundation of the Extended Neural GPU [16], ByteNet [18] and ConvS2S [9], all of which use convolutional neural networks as basic building block, computing hidden representations in parallel for all input and output positions. In these models, the number of operations required to relate signals from two arbitrary input or output positions grows in the distance between positions, linearly for ConvS2S and logarithmically for ByteNet. This makes it more difficult to learn dependencies between distant positions [12]. In the Transformer this is reduced to a constant number of operations, albeit at the cost of reduced effective resolution due to averaging attention-weighted positions, an effect we counteract with Multi-Head Attention as described in section 3.2.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 33
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "d84e1c687c2f47d7b645a3f0632cfe59",
+        "text": "Self-attention, sometimes called intra-attention is an attention mechanism relating different positions of a single sequence in order to compute a representation of the sequence. Self-attention has been used successfully in a variety of tasks including reading comprehension, abstractive summarization, textual entailment and learning task-independent sentence representations [4, 27, 28, 22].",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 34
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "fbec23fabe5446d48c8b4293e2f510c5",
+        "text": "End-to-end memory networks are based on a recurrent attention mechanism instead of sequence- aligned recurrence and have been shown to perform well on simple-language question answering and language modeling tasks [34].",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 35
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "7285bceef42e431989270604a6bc81b7",
+        "text": "To the best of our knowledge, however, the Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence- aligned RNNs or convolution. In the following sections, we will describe the Transformer, motivate self-attention and discuss its advantages over models such as [17, 18] and [9].",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 36
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "257092751eba4267b9118a0db2b72a17",
+        "text": "3 Model Architecture",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 37
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "49d2532dd61a4a5d987325f52e04b691",
+        "text": "Most competitive neural sequence transduction models have an encoder-decoder structure [5, 2, 35]. Here, the encoder maps an input sequence of symbol representations (x1, ..., xn) to a sequence of continuous representations z = (z1, ..., zn). Given z, the decoder then generates an output sequence (y1, ..., ym) of symbols one element at a time. At each step the model is auto-regressive [10], consuming the previously generated symbols as additional input when generating the next.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 38
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "1a9f294a30ad4fb181d9a08cf62bc5b8",
+        "text": "Output Probabilities Add & Norm Feed Forward Add & Norm Multi-Head Attention a, Add & Norm Add & Norm Feed Forward Nx | -+CAgc8 Norm) Add & Norm Masked Multi-Head Multi-Head Attention Attention Se a, ee a, Positional Positional Encoding @ \u00a9 @ Encoding Input Output Embedding Embedding Inputs Outputs (shifted right)",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 39
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "2086252343c847ee968e1a4fad8490d9",
+        "text": "Figure 1: The Transformer - model architecture.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 40
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "4cc3f8455dd04cc2afd0583906a593d7",
+        "text": "The Transformer follows this overall architecture using stacked self-attention and point-wise, fully connected layers for both the encoder and decoder, shown in the left and right halves of Figure 1, respectively.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 41
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "c197b0bc67b64699ac6b31b22a2dc934",
+        "text": "3.1 Encoder and Decoder Stacks",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 42
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "35ac159ece5c4c0fb72311c3bfa3478a",
+        "text": "Encoder: The encoder is composed of a stack of N = 6 identical layers. Each layer has two sub-layers. The first is a multi-head self-attention mechanism, and the second is a simple, position- wise fully connected feed-forward network. We employ a residual connection [11] around each of the two sub-layers, followed by layer normalization [1]. That is, the output of each sub-layer is LayerNorm(x + Sublayer(x)), where Sublayer(x) is the function implemented by the sub-layer itself. To facilitate these residual connections, all sub-layers in the model, as well as the embedding layers, produce outputs of dimension dmodel = 512.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 43
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "7108f966dc2f41d5b355138cf7122718",
+        "text": "Decoder: The decoder is also composed of a stack of N = 6 identical layers. In addition to the two sub-layers in each encoder layer, the decoder inserts a third sub-layer, which performs multi-head attention over the output of the encoder stack. Similar to the encoder, we employ residual connections around each of the sub-layers, followed by layer normalization. We also modify the self-attention sub-layer in the decoder stack to prevent positions from attending to subsequent positions. This masking, combined with fact that the output embeddings are offset by one position, ensures that the predictions for position i can depend only on the known outputs at positions less than i.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 44
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "8a22cdb29d5f461b997efb6a84d01dd6",
+        "text": "3.2 Attention",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 45
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "a09b8ddbd1814a44804fb9e63280a187",
+        "text": "An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors. The output is computed as a weighted sum",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 46
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "1ccff4f81b1542b98c9427b7335ff5d7",
+        "text": "Scaled Dot-Product Attention  Multi-Head Attention",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 47
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "96f66dfd7e054b4bbfcc88377c362c53",
+        "text": "Linear",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 48
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "e672dbe35d2d487588c346fa814acfc0",
+        "text": "Figure 2: (left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several attention layers running in parallel.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 49
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "7025284c0b4247cb902f1227be203334",
+        "text": "of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 50
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "3dc6f14525e04a25b3b35b9d3e2b6096",
+        "text": "3.2.1 Scaled Dot-Product Attention",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 51
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "68596f640b5648f5879a243c9de52494",
+        "text": "We call our particular attention \"Scaled Dot-Product Attention\" (Figure 2). The input consists of queries and keys of dimension dk, and values of dimension dv. We compute the dot products of the \u221a dk, and apply a softmax function to obtain the weights on the query with all keys, divide each by values.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 52
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "9858e3b7023c4259aeb1487819886177",
+        "text": "In practice, we compute the attention function on a set of queries simultaneously, packed together into a matrix Q. The keys and values are also packed together into matrices K and V . We compute the matrix of outputs as:",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 53
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "1924a3cb008f4a13ac76c86f748b938d",
+        "text": "Attention(Q, K, V ) = softmax( QK T \u221a dk )V (1)",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 54
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "2b1fbc903c1d45d4ad7ace7b2d1282c7",
+        "text": "The two most commonly used attention functions are additive attention [2], and dot-product (multi- plicative) attention. Dot-product attention is identical to our algorithm, except for the scaling factor 1\u221a of . Additive attention computes the compatibility function using a feed-forward network with dk a single hidden layer. While the two are similar in theoretical complexity, dot-product attention is much faster and more space-efficient in practice, since it can be implemented using highly optimized matrix multiplication code.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 55
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "646a60240ee8486e8b44bdb25755f983",
+        "text": "While for small values of dk the two mechanisms perform similarly, additive attention outperforms dot product attention without scaling for larger values of dk [3]. We suspect that for large values of dk, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients 4. To counteract this effect, we scale the dot products by 1\u221a . dk",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 56
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "c897d856cefb4f12a9d1d1b13f3db407",
+        "text": "3.2.2 Multi-Head Attention",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 57
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "ed35a97585354a73a7931d2a608d92d7",
+        "text": "Instead of performing a single attention function with dmodel-dimensional keys, values and queries, we found it beneficial to linearly project the queries, keys and values h times with different, learned linear projections to dk, dk and dv dimensions, respectively. On each of these projected versions of queries, keys and values we then perform the attention function in parallel, yielding dv-dimensional",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 58
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "d0d056fc6f3d4e3da8c87cb8b94da22d",
+        "text": "\u2018To illustrate why the dot products get large, assume that the components of q and k are independent random variables with mean 0 and variance 1. Then their dot product, g -k = ves, qiki, has mean 0 and variance dx.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 59
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "c6d08bdbb070435ea5b2efc4ee68ad02",
+        "text": "output values. These are concatenated and once again projected, resulting in the final values, as depicted in Figure 2.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 60
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "83ee20764c1e48158217e414b28594c5",
+        "text": "Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions. With a single attention head, averaging inhibits this.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 61
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "b992ea779da34cf6968a61998286fc65",
+        "text": "MultiHead(Q, K, V ) = Concat(head1, ..., headh)W O where headi = Attention(QW Q i , KW K i , V W V i )",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 62
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "3bc27c324a7d4a0ea12b7e3204be9f01",
+        "text": "Where the projections are parameter matrices W Q and W O \u2208 Rhdv\u00d7dmodel. i \u2208 Rdmodel\u00d7dk , W K i \u2208 Rdmodel\u00d7dk , W V i \u2208 Rdmodel\u00d7dv",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 63
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "bc62e558c8764f8d80ca8f8730ed6b1b",
+        "text": "In this work we employ h = 8 parallel attention layers, or heads. For each of these we use dk = dv = dmodel/h = 64. Due to the reduced dimension of each head, the total computational cost is similar to that of single-head attention with full dimensionality.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 64
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "60322ee5cfcc424a9b5121e7f7bea010",
+        "text": "3.2.3 Applications of Attention in our Model",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 65
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "71d9b71ab8f14dbd8af5fc98fa355461",
+        "text": "The Transformer uses multi-head attention in three different ways:",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 66
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "9d5123db6dbf43bb8113c79f8a58050a",
+        "text": "\u2022 In \"encoder-decoder attention\" layers, the queries come from the previous decoder layer, and the memory keys and values come from the output of the encoder. This allows every position in the decoder to attend over all positions in the input sequence. This mimics the typical encoder-decoder attention mechanisms in sequence-to-sequence models such as [38, 2, 9].",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 67
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "1e3cff9745af429fbbc5c949d4a8aa93",
+        "text": "\u2022 The encoder contains self-attention layers. In a self-attention layer all of the keys, values and queries come from the same place, in this case, the output of the previous layer in the encoder. Each position in the encoder can attend to all positions in the previous layer of the encoder.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 68
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "617ae63b669341e7932e0e20e2d16b7d",
+        "text": "\u2022 Similarly, self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position. We need to prevent leftward information flow in the decoder to preserve the auto-regressive property. We implement this inside of scaled dot-product attention by masking out (setting to \u2212\u221e) all values in the input of the softmax which correspond to illegal connections. See Figure 2.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 69
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "42da4bf1f0744e64b28d0cb2ac9ae2b8",
+        "text": "3.3 Position-wise Feed-Forward Networks",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 70
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "15f98bf06c2548059241484392436ab8",
+        "text": "In addition to attention sub-layers, each of the layers in our encoder and decoder contains a fully connected feed-forward network, which is applied to each position separately and identically. This consists of two linear transformations with a ReLU activation in between.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 71
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "41b839d23095494997149fe9673964c5",
+        "text": "FFN(x) = max(0, xW1 + b1)W2 + b2 (2)",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 72
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "cc766377662b4fc993c84e461d326048",
+        "text": "While the linear transformations are the same across different positions, they use different parameters from layer to layer. Another way of describing this is as two convolutions with kernel size 1. The dimensionality of input and output is dmodel = 512, and the inner-layer has dimensionality df f = 2048.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 73
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "3d9f03f3b6ad48fd9ce56af1145925f1",
+        "text": "3.4 Embeddings and Softmax",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 74
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "c42e5cff36dd4b21b86246dfb7cb75d1",
+        "text": "Similarly to other sequence transduction models, we use learned embeddings to convert the input tokens and output tokens to vectors of dimension dmodel. We also use the usual learned linear transfor- mation and softmax function to convert the decoder output to predicted next-token probabilities. In our model, we share the same weight matrix between the two embedding layers and the pre-softmax linear transformation, similar to [30]. In the embedding layers, we multiply those weights by \u221a dmodel.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 75
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "befaa95089be4a28b7ac10043695e38b",
+        "text": "Table 1: Maximum path lengths, per-layer complexity and minimum number of sequential operations for different layer types. n is the sequence length, d is the representation dimension, k is the kernel size of convolutions and r the size of the neighborhood in restricted self-attention.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 76
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "cde7dc4c8aa1414f8d3f48a08e2d8663",
+        "text": "Layer Type Complexity per Layer Sequential Maximum Path Length Operations Self-Attention O(n2 \u00b7 d) O(1) O(1) Recurrent O(n \u00b7 d2) O(n) O(n) Convolutional O(k \u00b7 n \u00b7 d2) O(1) O(logk(n)) Self-Attention (restricted) O(r \u00b7 n \u00b7 d) O(1) O(n/r)",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 77
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "6d2f8ea0c60b4ca392d18facabd79f8e",
+        "text": "3.5 Positional Encoding",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 78
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "4c5f39caf32b488d9478c55c5401d35d",
+        "text": "Since our model contains no recurrence and no convolution, in order for the model to make use of the order of the sequence, we must inject some information about the relative or absolute position of the tokens in the sequence. To this end, we add \"positional encodings\" to the input embeddings at the bottoms of the encoder and decoder stacks. The positional encodings have the same dimension dmodel as the embeddings, so that the two can be summed. There are many choices of positional encodings, learned and fixed [9].",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 79
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "25beddc17bb84b0d8200667a6d7f7f88",
+        "text": "In this work, we use sine and cosine functions of different frequencies:",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 80
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "e18a4fb0ed8d4902a9a4e5b2637d6ffa",
+        "text": "P E(pos,2i) = sin(pos/100002i/dmodel) P E(pos,2i+1) = cos(pos/100002i/dmodel)",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 81
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "a221b71765bb4757b50355774700d2dd",
+        "text": "where pos is the position and i is the dimension. That is, each dimension of the positional encoding corresponds to a sinusoid. The wavelengths form a geometric progression from 2\u03c0 to 10000 \u00b7 2\u03c0. We chose this function because we hypothesized it would allow the model to easily learn to attend by relative positions, since for any fixed offset k, P Epos+k can be represented as a linear function of P Epos.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 82
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "b96494695a874aae85f419d724c6d42f",
+        "text": "We also experimented with using learned positional embeddings [9] instead, and found that the two versions produced nearly identical results (see Table 3 row (E)). We chose the sinusoidal version because it may allow the model to extrapolate to sequence lengths longer than the ones encountered during training.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 83
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "ab2e6afc4ccb4efba20bfea5ef420fdf",
+        "text": "4 Why Self-Attention",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 84
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "4498d6eabdd9475fa461dd3afd2a2fdd",
+        "text": "In this section we compare various aspects of self-attention layers to the recurrent and convolu- tional layers commonly used for mapping one variable-length sequence of symbol representations (x1, ..., xn) to another sequence of equal length (z1, ..., zn), with xi, zi \u2208 Rd, such as a hidden layer in a typical sequence transduction encoder or decoder. Motivating our use of self-attention we consider three desiderata.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 85
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "af4f91e7f8dd43adbd12d38d49b0f0f2",
+        "text": "One is the total computational complexity per layer. Another is the amount of computation that can be parallelized, as measured by the minimum number of sequential operations required.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 86
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "28cd1ace1f9a48b59549f40d97485c3f",
+        "text": "The third is the path length between long-range dependencies in the network. Learning long-range dependencies is a key challenge in many sequence transduction tasks. One key factor affecting the ability to learn such dependencies is the length of the paths forward and backward signals have to traverse in the network. The shorter these paths between any combination of positions in the input and output sequences, the easier it is to learn long-range dependencies [12]. Hence we also compare the maximum path length between any two input and output positions in networks composed of the different layer types.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 87
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "2a13da2382e5423cb9787dfa58397337",
+        "text": "As noted in Table 1, a self-attention layer connects all positions with a constant number of sequentially executed operations, whereas a recurrent layer requires O(n) sequential operations. In terms of computational complexity, self-attention layers are faster than recurrent layers when the sequence",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 88
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "77acb4b2d962439dbd103a4c2c8b15c9",
+        "text": "length n is smaller than the representation dimensionality d, which is most often the case with sentence representations used by state-of-the-art models in machine translations, such as word-piece [38] and byte-pair [31] representations. To improve computational performance for tasks involving very long sequences, self-attention could be restricted to considering only a neighborhood of size r in the input sequence centered around the respective output position. This would increase the maximum path length to O(n/r). We plan to investigate this approach further in future work.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 89
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "5a8a30eaf4804fa980f3aebe1cfdee6e",
+        "text": "A single convolutional layer with kernel width k < n does not connect all pairs of input and output positions. Doing so requires a stack of O(n/k) convolutional layers in the case of contiguous kernels, or O(logk(n)) in the case of dilated convolutions [18], increasing the length of the longest paths between any two positions in the network. Convolutional layers are generally more expensive than recurrent layers, by a factor of k. Separable convolutions [6], however, decrease the complexity considerably, to O(k \u00b7 n \u00b7 d + n \u00b7 d2). Even with k = n, however, the complexity of a separable convolution is equal to the combination of a self-attention layer and a point-wise feed-forward layer, the approach we take in our model.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 90
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "a46fbba1b34945788da53a63713996fa",
+        "text": "As side benefit, self-attention could yield more interpretable models. We inspect attention distributions from our models and present and discuss examples in the appendix. Not only do individual attention heads clearly learn to perform different tasks, many appear to exhibit behavior related to the syntactic and semantic structure of the sentences.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 91
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "a4a56d90c65b43e0a7bd2d4a8e828080",
+        "text": "5 Training",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 92
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "1581f90ad7e54d7298a428958a492430",
+        "text": "This section describes the training regime for our models.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 93
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "639185f35a2d46949c6418410d8798c7",
+        "text": "5.1 Training Data and Batching",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 94
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "fd795eec9d4d42928c04efd88cb378a3",
+        "text": "We trained on the standard WMT 2014 English-German dataset consisting of about 4.5 million sentence pairs. Sentences were encoded using byte-pair encoding [3], which has a shared source- target vocabulary of about 37000 tokens. For English-French, we used the significantly larger WMT 2014 English-French dataset consisting of 36M sentences and split tokens into a 32000 word-piece vocabulary [38]. Sentence pairs were batched together by approximate sequence length. Each training batch contained a set of sentence pairs containing approximately 25000 source tokens and 25000 target tokens.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 95
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "eb45e13174b7483c9367602132d6ff08",
+        "text": "5.2 Hardware and Schedule",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 96
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "38dfa6ec137e4bf2b4aa15525d03e8aa",
+        "text": "We trained our models on one machine with 8 NVIDIA P100 GPUs. For our base models using the hyperparameters described throughout the paper, each training step took about 0.4 seconds. We trained the base models for a total of 100,000 steps or 12 hours. For our big models,(described on the bottom line of table 3), step time was 1.0 seconds. The big models were trained for 300,000 steps (3.5 days).",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 97
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "487e78cd75ae401b82a7978bcd407857",
+        "text": "5.3 Optimizer",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 98
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "de1911a3de814ef68b1dc6f217c3dae5",
+        "text": "We used the Adam optimizer [20] with \u03b21 = 0.9, \u03b22 = 0.98 and \u03f5 = 10\u22129. We varied the learning rate over the course of training, according to the formula:",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 99
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "e8fc8a9851ad439fa73d32caae518234",
+        "text": "lrate = d\u22120.5 model \u00b7 min(step_num\u22120.5, step_num \u00b7 warmup_steps\u22121.5) (3)",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 100
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "d3d3acaca6a841cf90d0e2b0f1bd559a",
+        "text": "This corresponds to increasing the learning rate linearly for the first warmup_steps training steps, and decreasing it thereafter proportionally to the inverse square root of the step number. We used warmup_steps = 4000.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 101
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "c0aebfca06bc48e89babca392139b482",
+        "text": "5.4 Regularization",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 102
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "7919285ece3f4ce688d7068f17b6e1be",
+        "text": "We employ three types of regularization during training:",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 103
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "00c3591c4b1147709dc2f20d0d16a542",
+        "text": "Table 2: The Transformer achieves better BLEU scores than previous state-of-the-art models on the English-to-German and English-to-French newstest2014 tests at a fraction of the training cost.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 104
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "7593cd88af6c4392b6a63803e1f41a4e",
+        "text": "Model BLEU EN-DE EN-FR Training Cost (FLOPs) EN-DE EN-FR ByteNet [18] 23.75 Deep-Att + PosUnk [39] 39.2 1.0 \u00b7 1020 GNMT + RL [38] 24.6 39.92 2.3 \u00b7 1019 1.4 \u00b7 1020 ConvS2S [9] 25.16 40.46 9.6 \u00b7 1018 1.5 \u00b7 1020 MoE [32] 26.03 40.56 2.0 \u00b7 1019 1.2 \u00b7 1020 Deep-Att + PosUnk Ensemble [39] 40.4 8.0 \u00b7 1020 GNMT + RL Ensemble [38] 26.30 41.16 1.8 \u00b7 1020 1.1 \u00b7 1021 ConvS2S Ensemble [9] 26.36 41.29 7.7 \u00b7 1019 1.2 \u00b7 1021 Transformer (base model) 27.3 38.1 3.3 \u00b7 1018 Transformer (big) 28.4 41.8 2.3 \u00b7 1019",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 105
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "c692b81be760415491cc7732597b5e2c",
+        "text": "Residual Dropout We apply dropout [33] to the output of each sub-layer, before it is added to the sub-layer input and normalized. In addition, we apply dropout to the sums of the embeddings and the positional encodings in both the encoder and decoder stacks. For the base model, we use a rate of Pdrop = 0.1.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 106
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "6e8a6aa384d840a18a42af8c066e25be",
+        "text": "Label Smoothing During training, we employed label smoothing of value \u03f5ls = 0.1 [36]. This hurts perplexity, as the model learns to be more unsure, but improves accuracy and BLEU score.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 107
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "460b10f3fe4d4fc89693c0fec84c5ce8",
+        "text": "6 Results",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 108
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "fbb89fd95cef4f989f21cc0910859ac7",
+        "text": "6.1 Machine Translation",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 109
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "8b0b089c4b6b4479abf022e9399f7211",
+        "text": "On the WMT 2014 English-to-German translation task, the big transformer model (Transformer (big) in Table 2) outperforms the best previously reported models (including ensembles) by more than 2.0 BLEU, establishing a new state-of-the-art BLEU score of 28.4. The configuration of this model is listed in the bottom line of Table 3. Training took 3.5 days on 8 P100 GPUs. Even our base model surpasses all previously published models and ensembles, at a fraction of the training cost of any of the competitive models.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 110
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "7a78efce217a4301b28516df1d960308",
+        "text": "On the WMT 2014 English-to-French translation task, our big model achieves a BLEU score of 41.0, outperforming all of the previously published single models, at less than 1/4 the training cost of the previous state-of-the-art model. The Transformer (big) model trained for English-to-French used dropout rate Pdrop = 0.1, instead of 0.3.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 111
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "34b89f0a74dd4c6cb6f74d27b4327c53",
+        "text": "For the base models, we used a single model obtained by averaging the last 5 checkpoints, which were written at 10-minute intervals. For the big models, we averaged the last 20 checkpoints. We used beam search with a beam size of 4 and length penalty \u03b1 = 0.6 [38]. These hyperparameters were chosen after experimentation on the development set. We set the maximum output length during inference to input length + 50, but terminate early when possible [38].",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 112
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "2e800e22e6da4b1ea4d3943c9203c10f",
+        "text": "Table 2 summarizes our results and compares our translation quality and training costs to other model architectures from the literature. We estimate the number of floating point operations used to train a model by multiplying the training time, the number of GPUs used, and an estimate of the sustained single-precision floating-point capacity of each GPU 5.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 113
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "c3fcbc413a20424a82f07253b95ee785",
+        "text": "6.2 Model Variations",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 114
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "557eee25227d4b3cb46d3c4e024ed802",
+        "text": "To evaluate the importance of different components of the Transformer, we varied our base model in different ways, measuring the change in performance on English-to-German translation on the",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 115
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "af815472559b42b98f54a1c0b8d535e0",
+        "text": "5We used values of 2.8, 3.7, 6.0 and 9.5 TFLOPS for K80, K40, M40 and P100, respectively.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 116
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "d5636640829d470faccd680371c70caa",
+        "text": "Table 3: Variations on the Transformer architecture. Unlisted values are identical to those of the base model. All metrics are on the English-to-German translation development set, newstest2013. Listed perplexities are per-wordpiece, according to our byte-pair encoding, and should not be compared to per-word perplexities.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 117
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "e13a6e5801094ab5b5b9b703156fc49c",
+        "text": "N dmodel dff h dk dv Pdrop \u03f5ls train steps PPL (dev) BLEU params (dev) \u00d7106 base 6 512 2048 8 64 64 0.1 0.1 100K 4.92 25.8 65 1 512 512 5.29 24.9 (A) 4 16 128 32 128 32 5.00 4.91 25.5 25.8 32 16 16 5.01 25.4 (B) 16 32 5.16 5.01 25.1 25.4 58 60 2 6.11 23.7 36 4 5.19 25.3 50 8 4.88 25.5 80 (C) 256 32 32 5.75 24.5 28 1024 128 128 4.66 26.0 168 1024 5.12 25.4 53 4096 4.75 26.2 90 0.0 5.77 24.6 (D) 0.2 0.0 4.95 4.67 25.5 25.3 0.2 5.47 25.7 (E) positional embedding instead of sinusoids 4.92 25.7",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 118
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "31eaf202a61f4d49b415aab011355ac0",
+        "text": "big",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 119
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "6d80c08f46d34b1a8b67ffb28a33f11a",
+        "text": "development set, newstest2013. We used beam search as described in the previous section, but no checkpoint averaging. We present these results in Table 3.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 120
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "3686537a5c3240778b2f6743934d2533",
+        "text": "In Table 3 rows (A), we vary the number of attention heads and the attention key and value dimensions, keeping the amount of computation constant, as described in Section 3.2.2. While single-head attention is 0.9 BLEU worse than the best setting, quality also drops off with too many heads.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 121
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "6b8efc96704145e2a02a974081eccb5e",
+        "text": "In Table 3 rows (B), we observe that reducing the attention key size dk hurts model quality. This suggests that determining compatibility is not easy and that a more sophisticated compatibility function than dot product may be beneficial. We further observe in rows (C) and (D) that, as expected, bigger models are better, and dropout is very helpful in avoiding over-fitting. In row (E) we replace our sinusoidal positional encoding with learned positional embeddings [9], and observe nearly identical results to the base model.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 122
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "1c7d1d5c82bb45e0b7fd59a8d8ecb1ab",
+        "text": "6.3 English Constituency Parsing",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 123
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "0fe8aeb693ef487bb5031d2a620b1f81",
+        "text": "To evaluate if the Transformer can generalize to other tasks we performed experiments on English constituency parsing. This task presents specific challenges: the output is subject to strong structural constraints and is significantly longer than the input. Furthermore, RNN sequence-to-sequence models have not been able to attain state-of-the-art results in small-data regimes [37].",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 124
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "1cf86550d4254fb799d01d6ca400c8f4",
+        "text": "We trained a 4-layer transformer with dmodel = 1024 on the Wall Street Journal (WSJ) portion of the Penn Treebank [25], about 40K training sentences. We also trained it in a semi-supervised setting, using the larger high-confidence and BerkleyParser corpora from with approximately 17M sentences [37]. We used a vocabulary of 16K tokens for the WSJ only setting and a vocabulary of 32K tokens for the semi-supervised setting.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 125
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "7fff4567c1f94b7e861dc7fc3532d7ad",
+        "text": "We performed only a small number of experiments to select the dropout, both attention and residual (section 5.4), learning rates and beam size on the Section 22 development set, all other parameters remained unchanged from the English-to-German base translation model. During inference, we",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 126
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "fad29d61b72a49a0bf30ada57a04afc1",
+        "text": "Table 4: The Transformer generalizes well to English constituency parsing (Results are on Section 23 of WSJ)",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 127
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "af7066f8cbdd4d2d8ba4441ed977c2ef",
+        "text": "Parser Training WSJ 23 F1 Vinyals & Kaiser el al. (2014) [37] WSJ only, discriminative 88.3 Petrov et al. (2006) [29] WSJ only, discriminative 90.4 Zhu et al. (2013) [40] WSJ only, discriminative 90.4 Dyer et al. (2016) [8] WSJ only, discriminative 91.7 Transformer (4 layers) WSJ only, discriminative 91.3 Zhu et al. (2013) [40] semi-supervised 91.3 Huang & Harper (2009) [14] semi-supervised 91.3 McClosky et al. (2006) [26] semi-supervised 92.1 Vinyals & Kaiser el al. (2014) [37] semi-supervised 92.1 Transformer (4 layers) semi-supervised 92.7 Luong et al. (2015) [23] multi-task 93.0 Dyer et al. (2016) [8] generative 93.3",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 128
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "4225b8992b88492ab413875a99daae89",
+        "text": "increased the maximum output length to input length + 300. We used a beam size of 21 and \u03b1 = 0.3 for both WSJ only and the semi-supervised setting.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 129
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "930f766536cb473cb18ceb736399858a",
+        "text": "Our results in Table 4 show that despite the lack of task-specific tuning our model performs sur- prisingly well, yielding better results than all previously reported models with the exception of the Recurrent Neural Network Grammar [8].",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 130
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "d37c6fa5de1846b3947e892a66063c92",
+        "text": "In contrast to RNN sequence-to-sequence models [37], the Transformer outperforms the Berkeley- Parser [29] even when training only on the WSJ training set of 40K sentences.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 131
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "69375c5daae2429994e80dcd1d96fa78",
+        "text": "7 Conclusion",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 132
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "1662f4463e644422a9275f9bc8092a88",
+        "text": "In this work, we presented the Transformer, the first sequence transduction model based entirely on attention, replacing the recurrent layers most commonly used in encoder-decoder architectures with multi-headed self-attention.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 133
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "06ece8803cee4806a1d61b99c33f28f7",
+        "text": "For translation tasks, the Transformer can be trained significantly faster than architectures based on recurrent or convolutional layers. On both WMT 2014 English-to-German and WMT 2014 English-to-French translation tasks, we achieve a new state of the art. In the former task our best model outperforms even all previously reported ensembles.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 134
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "a5f46466a4e943ef99e085ab92c59c76",
+        "text": "We are excited about the future of attention-based models and plan to apply them to other tasks. We plan to extend the Transformer to problems involving input and output modalities other than text and to investigate local, restricted attention mechanisms to efficiently handle large inputs and outputs such as images, audio and video. Making generation less sequential is another research goals of ours.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 135
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "688d656562dd47e885a81c1edba04618",
+        "text": "The code we used to train and evaluate our models is available at https://github.com/ tensorflow/tensor2tensor.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 136
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "a7ba80d29ca9429d851739142a1b64a5",
+        "text": "Acknowledgements We are grateful to Nal Kalchbrenner and Stephan Gouws for their fruitful comments, corrections and inspiration.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 137
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "f6a1a12a8e134fdf8c8d05d379f556ab",
+        "text": "References",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 138
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "bbb68848bbc440b099f4eeb60ef242fd",
+        "text": "[1] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint arXiv:1607.06450, 2016.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 139
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "2085798d8d794e3c912492e35aca08f4",
+        "text": "[2] Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio. Neural machine translation by jointly learning to align and translate. CoRR, abs/1409.0473, 2014.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 140
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "28c6b170676647cfa317bb353023c70e",
+        "text": "[3] Denny Britz, Anna Goldie, Minh-Thang Luong, and Quoc V. Le. Massive exploration of neural machine translation architectures. CoRR, abs/1703.03906, 2017.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 141
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "31890ae273ab49e08f395a497aa8ee34",
+        "text": "[4] Jianpeng Cheng, Li Dong, and Mirella Lapata. Long short-term memory-networks for machine reading. arXiv preprint arXiv:1601.06733, 2016.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 142
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "88c8285cd7984cd685d1e5c606cdba1c",
+        "text": "[5] Kyunghyun Cho, Bart van Merrienboer, Caglar Gulcehre, Fethi Bougares, Holger Schwenk, and Yoshua Bengio. Learning phrase representations using rnn encoder-decoder for statistical machine translation. CoRR, abs/1406.1078, 2014.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 143
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "e97e4cb0e7d044e78c099a5b61c3e400",
+        "text": "[6] Francois Chollet. Xception: Deep learning with depthwise separable convolutions. arXiv preprint arXiv:1610.02357, 2016.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 144
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "80665a63c81d4242a21c236884e1a823",
+        "text": "[7] Junyoung Chung, \u00c7aglar G\u00fcl\u00e7ehre, Kyunghyun Cho, and Yoshua Bengio. Empirical evaluation of gated recurrent neural networks on sequence modeling. CoRR, abs/1412.3555, 2014.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 145
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "64afa27ce227407694afce6154db7cf9",
+        "text": "[8] Chris Dyer, Adhiguna Kuncoro, Miguel Ballesteros, and Noah A. Smith. Recurrent neural network grammars. In Proc. of NAACL, 2016.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 146
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "bd29a4415ea349ceb898542503c53073",
+        "text": "[9] Jonas Gehring, Michael Auli, David Grangier, Denis Yarats, and Yann N. Dauphin. Convolu- tional sequence to sequence learning. arXiv preprint arXiv:1705.03122v2, 2017.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 147
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "e28dd9317bfd4118bd5f1489bf0c1181",
+        "text": "[10] Alex Graves. Generating sequences with recurrent neural networks. arXiv preprint arXiv:1308.0850, 2013.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 148
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "babe840f74ae4377b45a9181a2f0ee91",
+        "text": "[11] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for im- age recognition. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 770\u2013778, 2016.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 149
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "46be327faee24c2e9878b0b4d89ade27",
+        "text": "[12] Sepp Hochreiter, Yoshua Bengio, Paolo Frasconi, and J\u00fcrgen Schmidhuber. Gradient flow in recurrent nets: the difficulty of learning long-term dependencies, 2001.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 150
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "ffae506554a9452285d3556204d0c9f9",
+        "text": "[13] Sepp Hochreiter and J\u00fcrgen Schmidhuber. Long short-term memory. Neural computation, 9(8):1735\u20131780, 1997.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 151
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "e5f509fdc79d45f49d55bec30a8be5da",
+        "text": "[14] Zhongqiang Huang and Mary Harper. Self-training PCFG grammars with latent annotations across languages. In Proceedings of the 2009 Conference on Empirical Methods in Natural Language Processing, pages 832\u2013841. ACL, August 2009.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 152
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "77b5df59128b42f7ae253997908be986",
+        "text": "[15] Rafal Jozefowicz, Oriol Vinyals, Mike Schuster, Noam Shazeer, and Yonghui Wu. Exploring the limits of language modeling. arXiv preprint arXiv:1602.02410, 2016.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 153
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "77f5bbd264cc441fa450fb0722381879",
+        "text": "[16] \u0141ukasz Kaiser and Samy Bengio. Can active memory replace attention? In Advances in Neural Information Processing Systems, (NIPS), 2016.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 154
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "11b3639e8ff1404e9e2b615b8a0423e7",
+        "text": "[17] \u0141ukasz Kaiser and Ilya Sutskever. Neural GPUs learn algorithms. In International Conference on Learning Representations (ICLR), 2016.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 155
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "1a8bda548fb943f8944ee3f3be68480d",
+        "text": "[18] Nal Kalchbrenner, Lasse Espeholt, Karen Simonyan, Aaron van den Oord, Alex Graves, and Ko- ray Kavukcuoglu. Neural machine translation in linear time. arXiv preprint arXiv:1610.10099v2, 2017.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 156
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "eed905088805423292a3ed1ffc843872",
+        "text": "[19] Yoon Kim, Carl Denton, Luong Hoang, and Alexander M. Rush. Structured attention networks. In International Conference on Learning Representations, 2017.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 157
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "87848badd0b54827b96580d10df45167",
+        "text": "[20] Diederik Kingma and Jimmy Ba. Adam: A method for stochastic optimization. In ICLR, 2015.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 158
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "886e714fbb1a41768e4b57bcca6f418f",
+        "text": "[21] Oleksii Kuchaiev and Boris Ginsburg. Factorization tricks for LSTM networks. arXiv preprint arXiv:1703.10722, 2017.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 159
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "95f18343dbfb4d47ab35215d93cd2e3f",
+        "text": "[22] Zhouhan Lin, Minwei Feng, Cicero Nogueira dos Santos, Mo Yu, Bing Xiang, Bowen Zhou, and Yoshua Bengio. A structured self-attentive sentence embedding. arXiv preprint arXiv:1703.03130, 2017.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 160
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "2ad15d223e564bbf80a735b5ea1de6a9",
+        "text": "[23] Minh-Thang Luong, Quoc V. Le, Ilya Sutskever, Oriol Vinyals, and Lukasz Kaiser. Multi-task sequence to sequence learning. arXiv preprint arXiv:1511.06114, 2015.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 161
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "1cf735b01c5a4c2daa4d26a4c6988fe8",
+        "text": "[24] Minh-Thang Luong, Hieu Pham, and Christopher D Manning. Effective approaches to attention- based neural machine translation. arXiv preprint arXiv:1508.04025, 2015.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 162
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "94558942a12148b1a547a483161f819e",
+        "text": "[25] Mitchell P Marcus, Mary Ann Marcinkiewicz, and Beatrice Santorini. Building a large annotated corpus of english: The penn treebank. Computational linguistics, 19(2):313\u2013330, 1993.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 163
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "09a66989a4d440779fa135f2a5be3b4e",
+        "text": "[26] David McClosky, Eugene Charniak, and Mark Johnson. Effective self-training for parsing. In Proceedings of the Human Language Technology Conference of the NAACL, Main Conference, pages 152\u2013159. ACL, June 2006.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 164
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "4751c8d20150427288daa7f494ff8433",
+        "text": "[27] Ankur Parikh, Oscar T\u00e4ckstr\u00f6m, Dipanjan Das, and Jakob Uszkoreit. A decomposable attention model. In Empirical Methods in Natural Language Processing, 2016.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 165
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "20d12c0be86344009328ede105896264",
+        "text": "[28] Romain Paulus, Caiming Xiong, and Richard Socher. A deep reinforced model for abstractive summarization. arXiv preprint arXiv:1705.04304, 2017.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 166
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "3a3ca796943d44d281594b69ac20eacf",
+        "text": "[29] Slav Petrov, Leon Barrett, Romain Thibaux, and Dan Klein. Learning accurate, compact, and interpretable tree annotation. In Proceedings of the 21st International Conference on Computational Linguistics and 44th Annual Meeting of the ACL, pages 433\u2013440. ACL, July 2006.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 167
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "f09fde29baa945e0a0626d858a853188",
+        "text": "[30] Ofir Press and Lior Wolf. Using the output embedding to improve language models. arXiv preprint arXiv:1608.05859, 2016.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 168
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "e4c5c26ebed840cb97c2f1059cce17ff",
+        "text": "[31] Rico Sennrich, Barry Haddow, and Alexandra Birch. Neural machine translation of rare words with subword units. arXiv preprint arXiv:1508.07909, 2015.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 169
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "502b9749fe8a4549a7637f9f99cbd576",
+        "text": "[32] Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le, Geoffrey Hinton, and Jeff Dean. Outrageously large neural networks: The sparsely-gated mixture-of-experts layer. arXiv preprint arXiv:1701.06538, 2017.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 170
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "f2de66f715c845f9818264fc95fd5bfa",
+        "text": "[33] Nitish Srivastava, Geoffrey E Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdi- nov. Dropout: a simple way to prevent neural networks from overfitting. Journal of Machine Learning Research, 15(1):1929\u20131958, 2014.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 171
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "b6e648a221214a7591f119392ddb54dc",
+        "text": "[34] Sainbayar Sukhbaatar, Arthur Szlam, Jason Weston, and Rob Fergus. End-to-end memory networks. In C. Cortes, N. D. Lawrence, D. D. Lee, M. Sugiyama, and R. Garnett, editors, Advances in Neural Information Processing Systems 28, pages 2440\u20132448. Curran Associates, Inc., 2015.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 172
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "d2ca1278d2374251aa4f431f84319dd6",
+        "text": "[35] Ilya Sutskever, Oriol Vinyals, and Quoc VV Le. Sequence to sequence learning with neural networks. In Advances in Neural Information Processing Systems, pages 3104\u20133112, 2014.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 173
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "25f5b57695ab4b8797795ade28fc2691",
+        "text": "[36] Christian Szegedy, Vincent Vanhoucke, Sergey Ioffe, Jonathon Shlens, and Zbigniew Wojna. Rethinking the inception architecture for computer vision. CoRR, abs/1512.00567, 2015.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 174
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "58933ef3ef2e4ed787b780f59cb8bcfb",
+        "text": "[37] Vinyals & Kaiser, Koo, Petrov, Sutskever, and Hinton. Grammar as a foreign language. In Advances in Neural Information Processing Systems, 2015.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 175
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "23c2771e91df4f95875b1a375e93df3c",
+        "text": "[38] Yonghui Wu, Mike Schuster, Zhifeng Chen, Quoc V Le, Mohammad Norouzi, Wolfgang Macherey, Maxim Krikun, Yuan Cao, Qin Gao, Klaus Macherey, et al. Google\u2019s neural machine translation system: Bridging the gap between human and machine translation. arXiv preprint arXiv:1609.08144, 2016.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 176
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "1941c78aaa574ccdaa91e7f1d0d28dc2",
+        "text": "[39] Jie Zhou, Ying Cao, Xuguang Wang, Peng Li, and Wei Xu. Deep recurrent models with fast-forward connections for neural machine translation. CoRR, abs/1606.04199, 2016.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 177
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "2ffaf59fe6114b68b9950fb0509b36d7",
+        "text": "[40] Muhua Zhu, Yue Zhang, Wenliang Chen, Min Zhang, and Jingbo Zhu. Fast and accurate shift-reduce constituent parsing. In Proceedings of the 51st Annual Meeting of the ACL (Volume 1: Long Papers), pages 434\u2013443. ACL, August 2013.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 178
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "7930bab0df00406582d210134e9ed8c1",
+        "text": "Attention Visualizations",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 179
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "f537239a35594def9fd7a17f9197ee86",
+        "text": "2 i i= RE 3 2 i 2 = = 2c 3 2 \u00a3 om % S GBANAAAA fe. Re) [a Q \u20acoe2s ozeseyzses 26e8 TL _ FFREKR8TZESHBOP_,SSESE DSsSSsSESE ~2\u00a3FFE\u20acvoFEnvnFECRCoecacKRGNESLSESSCEGC -vVvVVVVV HMO KEBOCSRSHLHOD QLSARBYXE FE OH \u201cA ARAAKRAAA \u201c= <2 \u00a3 8 FogesouggsS ss P25 5273 Qvryxapvs\\3 es sa 5 Seeneteecorzgrs = Q ogs aaa oO 2 Sere =~ aA o \u00b0 8 aaqaaq0gqaqg o o o 5 > o wWUvvvvVvV Vv \u2014e \u20acE\u00a3 \u00a9 e 2 6 v Do <\u00a2 8 & |",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 180
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "000fc04713264cbcb2f48a3f3f6590f3",
+        "text": "Figure 3: An example of the attention mechanism following long-distance dependencies in the encoder self-attention in layer 5 of 6. Many of the attention heads attend to a distant dependency of the verb \u2018making\u2019, completing the phrase \u2018making...more difficult\u2019. Attentions here shown only for the word \u2018making\u2019. Different colors represent different heads. Best viewed in color.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 181
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "cbcfab590e754cb598d6a91f62cbdb54",
+        "text": "<ped> <ped> UOIUIdO == Aw ul Bulssiw ale \u00ab aM = yeum = S| sy ysnf pinoys = uoluldo Aw ul Bulssiw ae ysnf 38q Pinoys uojeojdde Ss}! nq poped 38q JaAou Me] au <ped> <SOa> uojuido Aw ul Bulssiuw oe aM yeum S| SIU} ysnf 3q Pinoys uojeodde Ss}! ynq yoped 3q 4eAeuU meq auL <ped> <SOa> uo|uldo Aw ul Bulssiuw oe eM yeum S| Siu} ysnf 3q Pinoys uoyeoydde si! ynq yoped 3q aul",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 182
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "d5cb32263fd04df8b930be63f5831bc6",
+        "text": "Figure 4: Two attention heads, also in layer 5 of 6, apparently involved in anaphora resolution. Top: Full attentions for head 5. Bottom: Isolated attentions from just the word \u2018its\u2019 for attention heads 5 and 6. Note that the attentions are very sharp for this word.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 183
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "64e1e239d28e435bb4662cb5cf5e87f1",
+        "text": "<ped> <ped> <SOH>\\ <SO3> uoluido = uoluido Aw Aw yeyum S| sim pi\u2014f}\u2014 4 -ysn{ | Pinoys \u00ab+ pinoys uoeoydde uojeodde si! \u2014=S}! nga A ynq poped pooped aq aq Janou\u2122 J@AoU WIM TIM me) me) oul OUL",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 184
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "7170777573204f8994741702974d02b6",
+        "text": "<ped> <ped> so <0 Uo|UIdO uoluido Aw Aw ul ul Bulssiw Bulssiw ae ale aM am yeuM yeum S| S| sty} # sly -\u2014A - el eq eq pinoys \u00ab pinoys uojeoidde ee Ss}! Ss}! nq ee popod a \u2014_ ee eq eq JOAoU JOAoU IW IW rr auL auL",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 185
+        }
+    },
+    {
+        "type": "NarrativeText",
+        "element_id": "4488447e5bbe4038a3d0d8a5e58aaa61",
+        "text": "Figure 5: Many of the attention heads exhibit behaviour that seems related to the structure of the sentence. We give two such examples above, from two different heads from the encoder self-attention at layer 5 of 6. The heads clearly learned to perform different tasks.",
+        "metadata": {
+            "detection_class_prob": 1.0,
+            "coordinates": {
+                "points": []
+            },
+            "last_modified": "2024-12-27T15:30:48.566706",
+            "filetype": "text/plain",
+            "languages": [
+                "unknown"
+            ],
+            "page_number": 1,
+            "parent_id": null,
+            "file_directory": "./data",
+            "filename": "concatenated_text.txt",
+            "element_number": 186
+        }
+    }
+]
